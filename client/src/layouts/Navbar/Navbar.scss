@@ -1,0 +1,103 @@
+@use "../../sass/abstracts/variables" as *;
+@use "../../sass/abstracts/mixins" as *;
+@use "../../sass/abstracts/functions" as *;
+
+.navbar {
+  width: 100vw;
+  height: auto;
+  position: sticky;
+  top: 0;
+  z-index: 10000;
+  border-bottom: 1px solid $bg-border;
+  background-color: $bg-secondary;
+
+  .navbar-container {
+    width: 100%;
+    height: auto;
+    position: relative;
+    padding: 8px getSpacing(xl);
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+
+    .navbar-logo {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      .bluestate-logo {
+        width: 150px;
+        height: auto;
+      }
+    }
+
+    .navbar-inner {
+      width: auto;
+      height: auto;
+      display: flex;
+      justify-content: flex-end;
+
+      .navbar-group {
+        width: auto;
+        height: auto;
+        // border-radius: 999px;
+        padding: 4px;
+        z-index: 80;
+        // border: 2px solid $bg-border;
+      }
+    }
+
+    .navbar-navigations {
+      width: 100%;
+      height: auto;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+
+      .navbar-previous {
+        width: auto;
+        height: 32px;
+        padding: 0 10px;
+        z-index: 80;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        cursor: pointer;
+
+        .navbar-previous-span {
+          width: 32px;
+          height: 32px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background-color: $bg-border;
+
+          .navbar-previous-icon {
+            width: 20px;
+            height: 12px;
+            opacity: 40%;
+
+          }
+
+          &:hover {
+
+            background-color: $primary;
+
+            .navbar-previous-icon {
+              opacity: 100%;
+            }
+          }
+
+        }
+
+        .navbar-previous-icon-divider {
+          width: 2px;
+          height: 15px;
+          background-color: rgba($color: #fff, $alpha: 15%);
+          border-radius: 999px;
+        }
+      }
+    }
+  }
+}

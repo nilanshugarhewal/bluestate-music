@@ -1,0 +1,19 @@
+@use "../../sass/abstracts/variables" as var;
+@use "../../sass/abstracts/functions" as fn;
+
+.page-hero-text {
+    width: 100%;
+    text-align: center;
+    font-size: 32px;
+    padding: fn.getSpacing(xl) 0;
+
+    .page-hero-text-react {
+        font-weight: 600;
+
+        &:hover {
+            font-style: italic;
+            color: var.$primary;
+            font-weight: 700;
+        }
+    }
+}

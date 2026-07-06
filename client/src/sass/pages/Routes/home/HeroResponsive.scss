@@ -165,20 +165,20 @@
         .tc-pop-container {
           padding: 0 getSpacing(md);
 
-          .tc-pop-card {
-            width: 160px;
-            min-width: 160px;
+          .beat-card {
+            width: 100%;
             gap: getSpacing(sm);
 
             &:hover {
-              .tc-pop-card-image {
+              .beat-card-image {
                 transform: scale(1);
                 border: 1px solid rgba($color: #fff, $alpha: 0.1);
               }
             }
 
-            .tc-pop-card-image {
-              height: 160px;
+            .beat-card-image {
+              aspect-ratio: 1 / 1;
+              height: auto;
             }
           }
         }

@@ -1,208 +1,339 @@
-.track-info {
-  width: 100vw;
-  height: 100vh;
+
+.track-info-page {
+  width: 100%;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  padding: 0 getSpacing(3xl);
+  color: #fff;
+  padding-top: getSpacing(lg); /* For navbar spacing */
 
-  .go-back {
-    width: 100vw;
-    height: auto;
-    position: absolute;
-    top: getSpacing(md);
+  .ti-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+    // padding: getSpacing(xl);
+    flex: 1;
     display: flex;
-    justify-content: center;
-    z-index: 100000;
+    flex-direction: column;
+    gap: getSpacing(lg);
+  }
 
-    .go-back-icon {
-      @include flex-center;
-      transform: rotate(-90deg);
-      color: $fg-secondary;
+  /* --- Hero Section --- */
+  .ti-hero {
+    display: flex;
+    // gap: getSpacing(2xl);
+    align-items: flex-start;
+
+    .ti-cover {
+      width: 250px;
+      height: 250px;
+      flex-shrink: 0;
+      overflow: hidden;
+      
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+
+    .ti-details {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: getSpacing(md);
+      // padding-top: getSpacing(md);
+
+      .ti-header-row {
+        display: flex;
+        align-items: center;
+        gap: getSpacing(md);
+
+        .ti-play-btn {
+          background: none;
+          border: none;
+          color: #fff;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          transition: transform 0.2s ease;
+          
+          svg {
+            width: 48px;
+            height: 48px;
+          }
+
+          &:hover {
+            transform: scale(1.05);
+          }
+        }
+
+        .ti-title {
+          font-size: 2.5rem;
+          font-family: $font-bold;
+          margin: 0;
+          line-height: 1.2;
+        }
+      }
+
+      .ti-artist {
+        font-size: 1.1rem;
+        color: #e4e4e7;
+        margin-left: 64px; /* Align with title (play button width + gap) */
+      }
+
+      .ti-badges {
+        display: flex;
+        align-items: center;
+        gap: getSpacing(lg);
+        margin-left: 64px;
+        
+        .ti-badge {
+          display: flex;
+          align-items: center;
+          gap: getSpacing(xs);
+          font-size: 0.9rem;
+          color: #a1a1aa;
+          font-family: $font-bold;
+          
+          .bpm-box {
+            background: #27272a;
+            color: #fff;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            letter-spacing: 0.5px;
+          }
+          
+          svg {
+            width: 16px;
+            height: 16px;
+          }
+        }
+      }
+
+      .ti-description {
+        margin-left: 64px;
+        color: #d4d4d8;
+        font-size: 1rem;
+        max-width: 600px;
+        line-height: 1.5;
+      }
+
+      .ti-actions-row {
+        display: flex;
+        align-items: center;
+        gap: getSpacing(md);
+        margin-left: 64px;
+        // margin-top: getSpacing(sm);
+        flex-wrap: wrap;
+
+        button {
+          display: flex;
+          align-items: center;
+          gap: getSpacing(sm);
+          padding: 8px 16px;
+          border-radius: 999px;
+          font-family: $font-bold;
+          font-size: 0.9rem;
+          cursor: pointer;
+          transition: all 0.2s ease;
+          border: none;
+          
+          svg {
+            width: 18px;
+            height: 18px;
+          }
+        }
+
+        .ti-btn-buy {
+          background: #000;
+          color: #fff;
+          
+          &:hover {
+            background: #27272a;
+            transform: scale(1.05);
+          }
+        }
+
+        .ti-btn-share {
+          background: rgba(255, 255, 255, 0.1);
+          color: #fff;
+          
+          &:hover {
+            background: rgba(255, 255, 255, 0.2);
+          }
+        }
+        
+        .ti-tags {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          margin-left: getSpacing(md);
+          
+          .ti-tag-pill {
+            background: #000;
+            color: #fff;
+            padding: 6px 14px;
+            border-radius: 999px;
+            font-size: 0.8rem;
+            font-family: $font-bold;
+            text-transform: capitalize;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+          }
+        }
+      }
     }
   }
 
-  .track-info-wrapper {
+  /* --- Progress Bar Section --- */
+  .ti-progress-section {
     width: 100%;
-    height: auto;
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    z-index: 100;
+    // margin-top: getSpacing(lg);
 
-    .st-box1 {
+    .ti-progress-bar-wrapper {
+      width: 100%;
+      height: 24px; /* generous hover area */
       display: flex;
-      flex-direction: column;
-      gap: getSpacing(lg);
+      align-items: center;
+      cursor: pointer;
+      position: relative;
+      margin-bottom: 4px;
 
-      .st-box-image-wrapper {
-        width: 30rem;
-        height: 30rem;
-        overflow: hidden;
-        border-radius: getSpacing(md);
-        box-shadow: inset 0 4px 10px rgba(0, 0, 0, 0.2);
-        border: 2px solid rgba(#fff, 0.1);
-        transform: scale(1) rotate(0);
-        transition: transform 0.5s $anim;
-
-        &.scale-less {
-          transform: scale(0.9) rotate(3deg);
+      &:hover {
+        .ti-progress-bg {
+          height: 6px;
+          background: rgba(255, 255, 255, 0.3);
         }
-
-        img {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
+        .ti-progress-fill {
+          background: #fff;
         }
+        .ti-progress-handle {
+          opacity: 1;
+        }
+      }
+
+      .ti-progress-bg {
+        width: 100%;
+        height: 4px;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 2px;
+        position: relative;
+        transition: height 0.2s ease, background 0.2s ease;
+      }
+
+      .ti-progress-fill {
+        height: 100%;
+        background: rgba(255, 255, 255, 0.8);
+        border-radius: 2px;
+        position: relative;
+        transition: background 0.2s ease;
+      }
+
+      .ti-progress-handle {
+        position: absolute;
+        right: -6px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 12px;
+        height: 12px;
+        background-color: #fff;
+        border-radius: 50%;
+        opacity: 0;
+        transition: opacity 0.1s ease;
+        box-shadow: 0 1px 4px rgba(0,0,0,0.5);
+      }
+      
+      .ti-tooltip {
+        position: absolute;
+        bottom: 24px;
+        transform: translateX(-50%);
+        padding: 4px 8px;
+        background: rgba(0, 0, 0, 0.9);
+        color: #fff;
+        border-radius: 4px;
+        font-size: 11px;
+        pointer-events: none;
       }
     }
 
-    .st-box2 {
-      flex: 1;
-      margin-right: getSpacing(lg);
-      height: 30rem;
-      max-height: 30rem;
+    .ti-time-labels {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.85rem;
+      color: rgba(255, 255, 255, 0.7);
+      // font-family: $font-mono;
+    }
+  }
+
+  /* --- Tabs Section --- */
+  .ti-tabs {
+    display: flex;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    // margin-top: getSpacing(md);
+    
+    .ti-tab {
+      background: none;
+      border: none;
+      color: #a1a1aa;
+      // padding: getSpacing(sm) getSpacing(lg);
+      font-family: $font-bold;
+      font-size: 0.9rem;
+      cursor: pointer;
+      position: relative;
+      transition: color 0.2s ease;
+      
+      &:hover {
+        color: #fff;
+      }
+
+      &.active {
+        color: #fff;
+        
+        &::after {
+          content: '';
+          position: absolute;
+          bottom: -1px;
+          left: 0;
+          width: 100%;
+          height: 2px;
+          background: #fff;
+        }
+      }
+    }
+  }
+
+  /* --- Related Tracks Section --- */
+  .ti-related-tracks {
+    display: flex;
+    flex-direction: column;
+    
+    .ti-table-header {
+      display: grid;
+      grid-template-columns: minmax(200px, 1fr) 80px 80px minmax(200px, 2fr) 200px;
+      // padding: 0 getSpacing(md) getSpacing(sm);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      margin-bottom: getSpacing(md);
+      
+      span {
+        font-size: 0.75rem;
+        color: #a1a1aa;
+        font-family: $font-bold;
+        letter-spacing: 1px;
+      }
+    }
+
+    .ti-related-list {
       display: flex;
       flex-direction: column;
-      align-items: center;
-      justify-content: space-between;
-      gap: getSpacing(lg);
-
-      .st-info1 {
+      gap: getSpacing(sm);
+      
+      .ti-no-related {
+        color: #a1a1aa;
+        // padding: getSpacing(xl);
         text-align: center;
-
-        .st-info-section {
-          .st-info-song-name {
-            font-size: 3rem;
-            font-family: $font-bold;
-          }
-
-          .st-info-artist-name {
-            color: $fg-secondary;
-          }
-        }
-
-        .st-interaction-section {
-          display: none;
-        }
-      }
-
-      .st-info2 {
-        flex: 1;
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: getSpacing(lg);
-
-        .st-info2-des {
-          text-align: center;
-        }
-
-        .st-info2-wrapper {
-          display: flex;
-          gap: getSpacing(sm);
-        }
-
-        .st-arr-wrapper {
-          display: flex;
-          flex-direction: column;
-          align-items: flex-end;
-          gap: getSpacing(sm);
-
-          .st-arr-wrapper-heading {
-            font-size: 12px;
-            color: $fg-primary;
-            padding: getSpacing(xs);
-            background: rgba(#000, 0.3);
-            border-radius: getSpacing(sm);
-          }
-
-          .st-arr-wrapper-box {
-            display: flex;
-            gap: getSpacing(sm);
-
-            .st-arr-wrapper-element {
-              border: 2px solid $fg-secondary;
-              border-radius: 999px;
-              padding: getSpacing(sm) getSpacing(md);
-            }
-          }
-        }
-      }
-
-      .st-box-player-wrapper {
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-
-        .beat-purchase-options {
-          display: flex;
-          justify-content: space-between;
-          align-items: end;
-          margin-bottom: getSpacing(md);
-
-          .beat-add-cart {
-            padding: getSpacing(sm) getSpacing(md);
-            background: #fff;
-            color: #000;
-            border-radius: 999px;
-            font-family: $font-bold;
-          }
-
-          .beat-like {
-            display: flex;
-            gap: getSpacing(md);
-          }
-        }
-
-        .st-box-player-wrapper-box {
-          .player-bar-song-name {
-            font-size: 1.5rem;
-            display: none;
-          }
-
-          .player-bar {
-            width: 100%;
-            height: 5px;
-            background: rgba(#fff, 0.2);
-            border-radius: 2px;
-            overflow: hidden;
-            margin-bottom: 8px;
-            cursor: pointer;
-
-            .player-progress {
-              height: 100%;
-              background: rgba(#fff, 1);
-              border-radius: 999px;
-              transition: width 0.2s linear;
-            }
-          }
-
-          .player-song-duration {
-            display: flex;
-            justify-content: space-between;
-            font-size: 12px;
-            color: $fg-secondary;
-          }
-        }
-
-        .player-controls {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          gap: getSpacing(md);
-
-          .pc-skip {
-            font-size: 3rem;
-          }
-
-          .pc-play {
-            font-size: 5rem;
-          }
-        }
       }
     }
   }

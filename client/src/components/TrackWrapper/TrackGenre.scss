@@ -1,0 +1,48 @@
+@use "../../sass/abstracts/variables" as *;
+@use "../../sass/abstracts/mixins" as *;
+@use "../../sass/abstracts/functions" as *;
+
+.tc-pop {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 24px;
+  z-index: 899;
+  padding: 0 getSpacing(xl);
+
+  .tc-pop-heading {
+    width: 100%;
+    height: auto;
+    font-size: 18px;
+    font-family: $font-bold;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 getSpacing(xl);
+
+    span {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: $fg-secondary;
+    }
+  }
+
+  .tc-pop-container {
+    width: 100%;
+    height: auto;
+
+    &.tc-pop-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+    }
+
+    &.tc-pop-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+  }
+}

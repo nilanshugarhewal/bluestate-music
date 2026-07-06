@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 
-import TrackLatest from "../../../components/TrackWrapper/TrackLatest";
 import TrackGenre from "../../../components/TrackWrapper/TrackGenre";
-import TrackNew from "../../../components/TrackWrapper/TrackNew";
 import Loading from "../../../components/Loading/Loading";
+import Footer from "../../../layouts/Footer/Footer";
+import PageHeroText from "../../../components/PageHeroText/PageHeroText";
 
 const Home = () => {
   const apiRandom = process.env.REACT_APP_API_RANDOM;
@@ -65,25 +65,19 @@ const Home = () => {
 
   return (
     <div className="home">
-      <div className="home-heading bg-blur">
-        <p>Home</p>
-        <div></div>
-      </div>
+
+      <PageHeroText />
 
       {beats.all.length > 0 ? (
         <div className="home-content-container">
-          <span className="hcc-heading">
-            <p className="hcc-top">Top Picks For You</p>
-            <p className="hcc-bottom">New Today</p>
-          </span>
-
-          <TrackNew allBeats={beats.random1} till={4} />
-          <TrackLatest allBeats={beats.random2} headingName={"Typebeats"}/>
-          <TrackGenre allBeats={beats.random3} />
+          <TrackGenre allBeats={beats.random1.slice(0, 8)} />
         </div>
       ) : (
         <Loading />
       )}
+
+      <Footer />
+
     </div>
   );
 };

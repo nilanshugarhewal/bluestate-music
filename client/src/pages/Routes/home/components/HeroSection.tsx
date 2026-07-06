@@ -25,10 +25,10 @@ const HeroSection = () => {
             <div>About</div>
           </p>
           <p className="hero-about-content">
-            Gresic is a space built from my love for music — a place where
+            BlueState is a space built from my love for music — a place where
             beats, melodies, and emotions come together. It’s about discovering
             sounds, creating vibes, and connecting through music that feels
-            real. Whether it’s playlists or favorite tracks, Gresic is here to
+            real. Whether it’s playlists or favorite tracks, BlueState is here to
             make listening simple and meaningful.
           </p>
         </div>

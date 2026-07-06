@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { MagnifyingGlassIcon } from "@phosphor-icons/react";
+import { MagnifyingGlassIcon, SquaresFourIcon, ListIcon } from "@phosphor-icons/react";
 import { useDispatch } from "react-redux";
 import { playTrack } from "../../../store/playerSlice";
-
-// import Transition from "../../components/Transition/Transition";
+import TrackGenre from "../../../components/TrackWrapper/TrackGenre";
 
 const Search = () => {
   type Beat = {
@@ -29,6 +28,7 @@ const Search = () => {
   const [allBeats, setAllBeats] = useState<Beat[]>([]);
   const [query, setQuery] = useState(""); 
   const [filteredBeats, setFilteredBeats] = useState<Beat[]>([]);
+  const [layout, setLayout] = useState<"card" | "row">("card");
 
   useEffect(() => {
     if (!apiLink) {
@@ -70,59 +70,53 @@ const Search = () => {
   return (
     <div className="search">
       <div className="search-input-box bg-blur">
-        <span>
-          <p className="search-heading">Search</p>
+        {/* <p className="search-heading">Search</p> */}
 
-          <div className="search-input">
-            <MagnifyingGlassIcon
-              className="search-icon"
-              weight="bold"
-              size={24}
-            />
-            <input
-              type="text"
-              placeholder="Search Typebeat, BPM, Scale & More..."
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-            />
-          </div>
-        </span>
+        <div className="search-input">
+          <MagnifyingGlassIcon
+            className="search-icon"
+            weight="bold"
+            size={24}
+          />
+          <input
+            type="text"
+            placeholder="Search Typebeat, BPM, Scale & More..."
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+          />
+        </div>
 
-        <div className="search-res-divider"></div>
+        <div className="search-layout-toggle">
+          <button
+            className={`toggle-btn ${layout === "card" ? "active" : ""}`}
+            onClick={() => setLayout("card")}
+            title="Grid View"
+          >
+            <SquaresFourIcon size={20} weight={layout === "card" ? "fill" : "bold"} />
+            {/* <span>Grid</span> */}
+          </button>
+          <button
+            className={`toggle-btn ${layout === "row" ? "active" : ""}`}
+            onClick={() => setLayout("row")}
+            title="List View"
+          >
+            <ListIcon size={20} weight={layout === "row" ? "fill" : "bold"} />
+            {/* <span>List</span> */}
+          </button>
+        </div>
+
+        {/* <div className="search-res-divider"></div> */}
       </div>
 
       <div className="search-results">
-        <span className="search-res-wrapper">
-          {filteredBeats.length > 0 ? (
-            filteredBeats.map((beat) => (
-              <>
-                <div
-                  key={beat._id}
-                  className="search-res-card"
-                  onClick={() => handlePlay(beat)}
-                >
-                  <div className="search-card-info">
-                    <p className="sci-title">{beat.title}</p>
-                    <p className="sci-more">
-                      {beat.genre?.[0]} &middot; {beat.bpm} BPM &middot;{" "}
-                      {beat.scale}
-                    </p>
-                  </div>
-
-                  <div className="search-card-image">
-                    <img src={beat.coverImage} alt="cover" />
-                  </div>
-                </div>
-                <div className="search-cards-divider"></div>
-              </>
-            ))
-          ) : (
+        {filteredBeats.length > 0 ? (
+          <TrackGenre allBeats={filteredBeats} variant={layout} />
+        ) : (
+          <div className="no-results-container">
             <p className="no-results">No beats found.</p>
-          )}
-        </span>
+          </div>
+        )}
       </div>
-
-      {/* <span className="extra-fillup">not now</span> */}
     </div>
   );
 };

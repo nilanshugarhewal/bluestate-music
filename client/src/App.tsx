@@ -11,7 +11,8 @@ import Admin from "./pages/admin/SecurityCheck";
 import EditBeat from "./pages/CRUD/UpdatePage";
 
 // LAYOUTS
-import Nav from "./layouts/Nav/Nav";
+import Nav from "./layouts/Navbar/Navbar";
+import MusicPlayer from "./components/MusicPlayer/MusicPlayer";
 import CreatePage from "./pages/CRUD/CreatePage";
 
 // MAIN APP
@@ -19,6 +20,9 @@ const App = () => {
   return (
     <BrowserRouter>
       {/* ROUTES */}
+
+      {/* LAYOUTS */}
+      <Nav />
 
       <Routes>
         <Route path="/home" element={<Home />}></Route>
@@ -40,8 +44,8 @@ const App = () => {
         <Route path="/" element={<Navigate to="/home" replace />} />
       </Routes>
 
-      {/* LAYOUTS */}
-      <Nav />
+      <MusicPlayer />
+
       {/* <Footer /> */}
     </BrowserRouter>
   );

@@ -1,96 +1,70 @@
-@media (max-width: 1200px) {
-  .track-info {
-    padding: 0 getSpacing(lg);
-
-    .track-info-wrapper {
-      .st-box1 {
-        .st-box-image-wrapper {
-          width: 26rem;
-          height: 26rem;
-        }
-      }
-
-      .st-box2 {
-        height: 26rem;
-        max-height: 26rem;
-        .st-info2 {
-          .st-info2-des {
-            display: none;
-          }
-        }
-      }
+@media (max-width: 900px) {
+  .track-info-page {
+    .ti-container {
+      padding: getSpacing(md);
     }
-  }
-}
-
-@media (max-width: 1024px) {
-  .track-info {
-    padding: 0 getSpacing(lg);
-    height: 100vh;
-
-    .track-info-wrapper {
-      width: auto;
-      height: 100%;
-      flex-direction: column-reverse;
-      justify-content: start;
+    
+    .ti-hero {
+      flex-direction: column;
       align-items: center;
-      gap: getSpacing(lg);
-      padding-top: getSpacing(3xl);
-
-      .st-box1 {
-        .st-box-image-wrapper {
-          width: 100%;
-          height: 100%;
-        }
+      gap: getSpacing(xl);
+      
+      .ti-cover {
+        width: 100%;
+        max-width: 300px;
+        height: auto;
+        aspect-ratio: 1/1;
       }
 
-      .st-box2 {
-        flex: none;
-        width: 100%;
-        margin-right: 0;
-        height: auto;
-        max-height: auto;
-        // background: red;
-        align-items: start;
-        gap: getSpacing(md);
+      .ti-details {
+        align-items: center;
+        text-align: center;
+        padding-top: 0;
 
-        .st-info1 {
-          text-align: start;
-          width: 100%;
-          height: auto;
-          display: flex;
-          justify-content: space-between;
-
-          .st-info-section {
-            .st-info-song-name {
-              font-size: 1.5rem;
-            }
-
-            .st-info-artist-name {
-              color: $fg-secondary;
-            }
-          }
-
-          .st-interaction-section {
-            display: flex;
-            gap: getSpacing(md);
+        .ti-artist, .ti-badges, .ti-description, .ti-actions-row {
+          margin-left: 0;
+          justify-content: center;
+        }
+        
+        .ti-actions-row {
+          .ti-tags {
+            margin-left: 0;
+            margin-top: getSpacing(md);
+            flex-wrap: wrap;
+            justify-content: center;
           }
         }
+      }
+    }
 
-        .st-info2 {
-          display: none;
-        }
-
-        .st-box-player-wrapper {
-          //   background: blue;
-          gap: getSpacing(md);
-
-          .beat-purchase-options {
-            display: none;
-          }
-        }
+    .ti-related-tracks {
+      .ti-table-header {
+        display: none; /* Hide header on mobile, rely on row internal layout */
       }
     }
   }
 }
 
+@media (max-width: 600px) {
+  .track-info-page {
+    .ti-hero {
+      .ti-details {
+        .ti-header-row {
+          .ti-title {
+            font-size: 1.8rem;
+          }
+          
+          .ti-play-btn svg {
+            width: 40px;
+            height: 40px;
+          }
+        }
+        
+        .ti-badges {
+          flex-direction: column;
+          gap: getSpacing(sm);
+        }
+      }
+    }
+  }
+}

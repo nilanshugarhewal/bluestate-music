@@ -1,13 +1,17 @@
+@use "variables" as *;
+@use "sass:math";
+@use "sass:map";
+
 // MATH FUNCTIONS
 
 // CONVERT PX TO REM
 @function rem($px) {
-  @return $px / 16 * 1rem;
+  @return math.div($px, 16);
 }
 
 // GET SPACING
 @function getSpacing($size) {
-  @return map-get($spacing-scale, $size);
+  @return map.get($spacing-scale, $size);
 }
 
 // GIVES % PADDING
@@ -18,7 +22,7 @@
 // FOR MAINTAINING Z INDEX
 
 @function z($name) {
-  @return map-get($z-layers, $name);
+  @return map.get($z-layers, $name);
 }
 
 // CONVERT INTO RGBA

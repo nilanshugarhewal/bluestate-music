@@ -1,7 +1,7 @@
 // ALL FONT STYLES & TEXT FORMATTING
 
 @font-face {
-  font-family: "SF Pro";
+  font-family: "REGULAR";
   src: url("../../assets/fonts/sf-pro-display/SFPRODISPLAYREGULAR.OTF")
     format("opentype");
   font-weight: normal;
@@ -9,7 +9,7 @@
 }
 
 @font-face {
-  font-family: "SF Pro Bold";
+  font-family: "BOLD";
   src: url("../../assets/fonts/sf-pro-display/SFPRODISPLAYBOLD.OTF")
     format("opentype");
   font-weight: normal;
@@ -42,8 +42,6 @@
 
 body {
   font-family: $font-main;
-  background-color: $bg-primary;
-  color: $fg-primary;
   font-weight: 500;
 }
 

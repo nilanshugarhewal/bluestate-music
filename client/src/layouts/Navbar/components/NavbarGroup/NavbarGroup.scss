@@ -1,0 +1,52 @@
+@use "../../../../sass/abstracts/functions" as fun;
+@use "../../../../sass/abstracts/mixins" as mix;
+@use "../../../../sass/abstracts/variables" as var;
+
+.nav-links {
+  @include mix.flex-center;
+  gap: fun.getSpacing(sm);
+
+  .icon {
+    // border-radius: 999px;
+    background-color: rgba(118, 118, 128, 0.12);
+
+
+    .icon-child {
+      min-width: 40px;
+      height: 40px;
+      // padding: 0 fun.getSpacing(md);
+      @include mix.flex-center;
+      opacity: 0.5;
+    }
+
+    &:hover {
+      background-color: var.$primary;
+
+      .icon-child {
+        opacity: 1;
+      }
+    }
+  }
+
+  .icon.active {
+    background-color: rgba(118, 118, 128, 0.12);
+
+    .icon-child {
+      opacity: 1;
+    }
+
+    &:hover {
+      background-color: var.$primary;
+    }
+  }
+
+  .open {
+    .icon-title {
+      color: var.$fg-primary;
+    }
+
+    .icon-underline {
+      width: 100%;
+    }
+  }
+}

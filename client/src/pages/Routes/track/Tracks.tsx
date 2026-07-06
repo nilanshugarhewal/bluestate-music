@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 
-import TrackNew from "../../../components/TrackWrapper/TrackNew";
-import TrackLatest from "../../../components/TrackWrapper/TrackLatest";
 import TrackGenre from "../../../components/TrackWrapper/TrackGenre";
+import PageHeroText from "../../../components/PageHeroText/PageHeroText";
 
 import Loading from "../../../components/Loading/Loading";
+import Footer from "../../../layouts/Footer/Footer";
 
 const Tracks = () => {
   const apiLink = process.env.REACT_APP_API_URL;
@@ -41,22 +41,19 @@ const Tracks = () => {
 
   return (
     <div className="tracks">
-      <div className="track-heading bg-blur">
-        <p>Browse</p>
-        <div></div>
-      </div>
+
+      <PageHeroText />
 
       {allBeats.length > 0 ? (
         <div className="browse-content-container">
-          <TrackNew allBeats={allBeats} till={3} />
 
-          <TrackLatest allBeats={allBeats} headingName={"Latest Typebeats"}/>
-
-          <TrackGenre allBeats={allBeats} />
+          <TrackGenre allBeats={allBeats} variant="row" />
         </div>
       ) : (
         <Loading />
       )}
+
+      <Footer />
     </div>
   );
 };

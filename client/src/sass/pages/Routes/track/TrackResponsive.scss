@@ -135,15 +135,15 @@
       .tc-pop-container {
         @include section-padding(md);
 
-        .tc-pop-card {
-          width: 160px;
-          min-width: 160px;
+        .beat-card {
+          width: 100%;
           gap: getSpacing(sm);
 
-          @include hover-border(".tc-pop-card-image", 0.1, 1);
+          @include hover-border(".beat-card-image", 0.1, 1);
 
-          .tc-pop-card-image {
-            height: 160px;
+          .beat-card-image {
+            aspect-ratio: 1 / 1;
+            height: auto;
           }
         }
       }

@@ -1,0 +1,72 @@
+@use "../../sass/abstracts/variables" as *;
+@use "../../sass/abstracts/mixins" as *;
+@use "../../sass/abstracts/functions" as *;
+
+.beat-card {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    gap: getSpacing(md);
+    transition: all .3s ease;
+
+    &:hover {
+        border: 1px solid white;
+        padding: getSpacing(md);
+    }
+
+    .beat-card-image {
+        width: 100%;
+        height: auto;
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+
+    .beat-card-info {
+        width: 100%;
+        height: auto;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        gap: getSpacing(sm);
+
+        .beat-card-top {
+            display: flex;
+            flex-direction: column;
+            gap: getSpacing(xs);
+
+            .beat-card-artist {
+                font-size: 12px;
+                color: $fg-secondary;
+            }
+
+            .beat-card-title {
+                font-size: 24px;
+            }
+        }
+
+        .beat-card-bottom {
+            font-size: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 4px;
+
+            .beat-card-genres {
+                display: flex;
+                gap: 4px;
+
+                .beat-card-genre {
+                    padding: getSpacing(xs);
+                    background-color: #c0b3e7;
+                    color: #000;
+                }
+            }
+        }
+    }
+}

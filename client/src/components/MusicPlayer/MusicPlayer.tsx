@@ -1,20 +1,22 @@
 import React, { useEffect, useRef, useState } from "react";
-import { PlayIcon, PauseIcon } from "@phosphor-icons/react";
+import { 
+  PlayIcon, PauseIcon, 
+  SkipBackIcon, SkipForwardIcon, 
+  HeartIcon, ShuffleIcon, 
+  RepeatIcon, SpeakerHighIcon 
+} from "@phosphor-icons/react";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../../store";
+import { RootState } from "../../store";
 import {
   pauseTrack,
   resumeTrack,
   setTime,
   clearSeek,
-} from "../../../store/playerSlice";
+} from "../../store/playerSlice";
 import { Link } from "react-router-dom";
+import "./MusicPlayer.scss";
 
-// type NavPlayerProps = {
-//   handleIsOn: () => void;
-// };
-
-const NavPlayer = () => {
+const MusicPlayer = () => {
   const dispatch = useDispatch();
 
   const { currentTrack, isPlaying, seekToSec, currentTimeSec, durationSec } =
@@ -141,38 +143,49 @@ const NavPlayer = () => {
     durationSec > 0 ? (currentTimeSec / durationSec) * 100 : 0;
 
   return (
-    <>
-      <div className="divider-n"></div>
-      <div className="nav-player">
-        {/* Only audio in the whole app */}
-        <audio ref={audioRef} src={currentTrack.audioUrl} preload="metadata" />
+    <div className="music-player">
+      {/* Only audio in the whole app */}
+      <audio ref={audioRef} src={currentTrack.audioUrl} preload="metadata" />
 
-        {/* cover image → go to track page */}
-        <Link
-          to={`/track/${currentTrack._id}`}
-          className="player-image uni-link"
-        >
+      {/* LEFT: Cover and Info */}
+      <div className="mp-left">
+        <Link to={`/track/${currentTrack._id}`} className="mp-cover-link">
           <img
             src={currentTrack.coverImage}
             alt={currentTrack.title}
-            className="player-img"
+            className="mp-cover-img"
           />
         </Link>
+        <Link to={`/track/${currentTrack._id}`} className="mp-info-link">
+          <div className="mp-title">{currentTrack.title}</div>
+          <div className="mp-artist">BlueState</div>
+        </Link>
+      </div>
 
-        {/* info + progress */}
-        <Link
-          to={`/track/${currentTrack._id}`}
-          className="player-container uni-link"
-        >
-          <div className="player-wrapper">
-            <div className="player-info">{currentTrack.title}</div>
-            <div className="duration">
-              {formatTime(currentTimeSec)} / {formatTime(durationSec)}
-            </div>
-          </div>
+      {/* CENTER: Controls and Progress */}
+      <div className="mp-center">
+        <div className="mp-controls">
+          <button className="mp-control-btn">
+            <SkipBackIcon weight="fill" />
+          </button>
+          
+          <button className="mp-play-btn" onClick={togglePlay}>
+            {isPlaying ? (
+              <PauseIcon weight="fill" />
+            ) : (
+              <PlayIcon weight="fill" />
+            )}
+          </button>
+          
+          <button className="mp-control-btn">
+            <SkipForwardIcon weight="fill" />
+          </button>
+        </div>
 
+        <div className="mp-progress-container">
+          <span className="mp-time">{formatTime(currentTimeSec)}</span>
           <div
-            className="player-bar"
+            className="mp-progress-bar-wrapper"
             ref={barRef}
             onClick={handleSeekClick}
             onMouseMove={(e) => {
@@ -191,22 +204,33 @@ const NavPlayer = () => {
                 {formatTime(hoverTime)}
               </div>
             )}
-
-            <div className="mp-progress" style={{ width: `${progressPct}%` }} />
+            <div className="mp-progress-bg">
+              <div className="mp-progress-fill" style={{ width: `${progressPct}%` }}>
+                <div className="mp-progress-handle"></div>
+              </div>
+            </div>
           </div>
-        </Link>
-
-        {/* play/pause */}
-        <div className="player-control" onClick={togglePlay}>
-          {isPlaying ? (
-            <PauseIcon className="nav-play-icon" weight="fill" />
-          ) : (
-            <PlayIcon className="nav-play-icon" weight="fill" />
-          )}
+          <span className="mp-time">{formatTime(durationSec)}</span>
         </div>
       </div>
-    </>
+
+      {/* RIGHT: Extra Actions */}
+      <div className="mp-right">
+        <button className="mp-action-btn">
+          <HeartIcon />
+        </button>
+        <button className="mp-action-btn">
+          <ShuffleIcon />
+        </button>
+        <button className="mp-action-btn">
+          <RepeatIcon />
+        </button>
+        <button className="mp-action-btn">
+          <SpeakerHighIcon />
+        </button>
+      </div>
+    </div>
   );
 };
 
-export default NavPlayer;
+export default MusicPlayer;
