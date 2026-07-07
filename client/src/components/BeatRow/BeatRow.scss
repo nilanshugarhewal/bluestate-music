@@ -4,39 +4,28 @@
 
 .beat-row {
     width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: getSpacing(sm) getSpacing(md);
-    background-color: rgba($color: #fff, $alpha: 0.02);
-    border: 1px solid rgba($color: #fff, $alpha: 0.05);
-    // border-radius: getSpacing(xs);
+    height: auto;
     cursor: pointer;
-    transition: all 0.3s ease;
-    gap: getSpacing(md);
+    display: grid;
+    grid-template-columns: 30% 1fr 10%;
+    align-items: center;
+    padding: getSpacing(sm);
+    border: 1px solid $dark2;
 
     &:hover {
-        background-color: rgba($color: #fff, $alpha: 0.06);
-        border-color: rgba($color: #fff, $alpha: 0.15);
-        transform: translateY(-1px);
-
-        .beat-row-play-overlay {
-            opacity: 1;
-        }
+        background-color: $dark;
     }
+
 
     .beat-row-left {
         display: flex;
         align-items: center;
         gap: getSpacing(md);
-        flex: 2;
-        min-width: 200px;
 
         .beat-row-image-container {
-            width: 50px;
-            height: 50px;
+            width: 4rem;
+            height: 4rem;
             position: relative;
-            // border-radius: 4px;
             overflow: hidden;
             border: 1px solid rgba($color: #fff, $alpha: 0.1);
             flex-shrink: 0;
@@ -84,39 +73,34 @@
         }
     }
 
-    .beat-row-stats {
+    .beat-row-middle {
+        width: 100%;
+        height: auto;
         display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: getSpacing(lg);
-        justify-content: flex-start;
-        font-size: 14px;
-        color: $fg-secondary;
+        grid-template-columns: 1fr 1fr 1fr 2fr;
+        align-items: center;
 
-        .beat-row-bpm {
-            font-weight: 500;
+        .beat-row-middle-element {
+            font-size: 14px;
+            color: $grey;
         }
 
-        .beat-row-scale {
-            opacity: 0.8;
-        }
-    }
 
-    .beat-row-genres {
-        display: flex;
-        gap: getSpacing(xs);
-        flex: 1;
-        justify-content: flex-start;
+        .beat-row-genres {
+            display: flex;
+            gap: getSpacing(xs);
+            justify-content: flex-start;
 
-        .beat-row-genre-pill {
-            font-size: 11px;
-            padding: 4px 10px;
-            background-color: $primary;
-            color: #000;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+            .beat-row-genre-pill {
+                font-size: 12px;
+                padding: 4px 8px;
+                background-color: $primary;
+                font-weight: 700;
+                color: $black;
+            }
         }
     }
+
 
     .beat-row-right {
         display: flex;
@@ -124,17 +108,22 @@
         gap: getSpacing(md);
         justify-content: flex-end;
         flex: 1;
+        // background-color: purple;
 
         .beat-row-price {
             font-size: 14px;
-            font-family: $font-bold;
-            color: #c0b3e7;
-        }
+            border: 1px solid $dark2;
+            padding: getSpacing(sm) getSpacing(md);
+            
+            &:hover {
+                background-color: $dark2;
+            }
 
-        .beat-row-duration {
-            font-size: 14px;
-            color: $fg-secondary;
-            opacity: 0.7;
+            &:active {
+                background-color: $primary;
+                color: $black;
+                border: none;
+            }
         }
     }
 }

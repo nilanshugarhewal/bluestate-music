@@ -1,0 +1,153 @@
+@use "../../../sass/abstracts/functions" as fn;
+@use "../../../sass/abstracts/mixins" as mx;
+@use "../../../sass/abstracts/variables" as var;
+
+.tracks {
+  width: 100vw;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  gap: fn.getSpacing(md);
+  position: relative;
+  margin-top: 8rem;
+
+  .track-top {
+    width: 100%;
+    height: auto;
+    padding: 0 4rem;
+    display: flex;
+    flex-direction: column;
+    gap: fn.getSpacing(md);
+
+    .track-filter-collection {
+      width: 100%;
+      height: auto;
+      display: flex;
+      column-gap: fn.getSpacing(md);
+
+      .track-filter-sort {
+        padding: fn.getSpacing(sm) fn.getSpacing(md);
+        border: 1px solid var.$dark2;
+        font-size: 14px;
+        cursor: pointer;
+        color: var.$grey;
+        transition: all 0.3s ease;
+
+        &:hover {
+          background-color: var.$dark;
+          color: var.$white;
+        }
+      }
+    }
+
+    .track-filter-beats {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      .tfb-search-col {
+        flex: 1;
+        max-width: 400px;
+
+        .tfb-search-box {
+          width: 100%;
+          height: auto;
+          display: flex;
+          align-items: center;
+          gap: fn.getSpacing(sm);
+          padding: fn.getSpacing(sm) fn.getSpacing(md);
+          border: 1px solid var.$dark2;
+          transition: border-color 0.2s ease;
+
+          &:focus-within {
+            border-color: rgba(255, 255, 255, 0.3);
+          }
+
+          input {
+            background: transparent;
+            border: none;
+            color: var.$white;
+            outline: none;
+            width: 100%;
+            font-family: "Mona Sans", sans-serif;
+
+            &::placeholder {
+              color: var.$grey;
+            }
+          }
+        }
+      }
+
+      .tfb-filters-col {
+        display: flex;
+        align-items: center;
+        gap: fn.getSpacing(lg);
+
+        .tfb-filter-group {
+          display: flex;
+          align-items: center;
+          gap: fn.getSpacing(sm);
+
+          .tfb-label {
+            padding: fn.getSpacing(sm) fn.getSpacing(md);
+            border: 1px solid var.$dark2;
+            font-size: 14px;
+            cursor: pointer;
+            color: var.$grey;
+          }
+
+          .tfb-select {
+            background: transparent;
+            color: var.$white;
+            border: 1px solid var.$dark2;
+            padding: fn.getSpacing(sm) fn.getSpacing(md);
+            font-size: 14px;
+            font-family: "Mona Sans", sans-serif;
+            outline: none;
+            cursor: pointer;
+            transition: border-color 0.2s ease;
+            color: var.$white;
+
+            &:hover {
+              border-color: rgba(255, 255, 255, 0.3);
+            }
+
+            option {
+              background: var.$dark;
+              color: var.$white;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .no-beats-found {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: fn.getSpacing(3xl) 0;
+    gap: fn.getSpacing(md);
+
+    p {
+      color: var.$grey;
+      font-size: 1.1rem;
+    }
+
+    button {
+      background: var.$white;
+      color: var.$dark;
+      border: none;
+      padding: fn.getSpacing(sm) fn.getSpacing(lg);
+      border-radius: 999px;
+      font-family: var.$font-bold;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+
+      &:hover {
+        transform: scale(1.05);
+      }
+    }
+  }
+}

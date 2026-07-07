@@ -18,26 +18,27 @@ export const BeatRow = ({ beat, handlePlay }: any) => {
 
                 <div className="beat-row-details">
                     <span className="beat-row-title">{beat.title}</span>
-                    {/* <span className="beat-row-artist">BlueState</span> */}
+                    <span className="beat-row-artist">{beat.collection?.name || "BlueState"}</span>
                 </div>
             </div>
 
-            <div className="beat-row-stats">
-                <span className="beat-row-bpm">{beat.bpm} BPM</span>
-                <span className="beat-row-scale">{beat.scale || "N/A"}</span>
-            </div>
+            <div className="beat-row-middle">
+                <div className="beat-row-middle-element beat-row-duration">{beat.duration}</div>
+                <div className="beat-row-middle-element beat-row-bpm">{beat.bpm} BPM</div>
+                <div className="beat-row-middle-element beat-row-scale">{beat.scale || "N/A"}</div>
 
-            <div className="beat-row-genres">
-                {beat.genre?.slice(0, 3).map((genre: any, index: number) => (
-                    <div key={index} className="beat-row-genre-pill">
-                        {genre}
-                    </div>
-                ))}
+                <div className="beat-row-genres">
+                    {beat.genre?.slice(0, 3).map((genre: any, index: number) => (
+                        <div key={index} className="beat-row-genre-pill">
+                            {genre}
+                        </div>
+                    ))}
+                </div>
+
             </div>
 
             <div className="beat-row-right">
                 {beat.price && <span className="beat-row-price">{beat.price}</span>}
-                {/* {beat.duration && <span className="beat-row-duration">{beat.duration}</span>} */}
             </div>
         </div>
     );

@@ -5,7 +5,6 @@ import "./Home.scss"
 import TrackGenre from "../../../components/TrackWrapper/TrackGenre";
 import Loading from "../../../components/Loading/Loading";
 import Footer from "../../../layouts/Footer/Footer";
-import PageHeroText from "../../../components/PageHeroText/PageHeroText";
 
 const Home = () => {
   const apiRandom = process.env.REACT_APP_API_RANDOM;

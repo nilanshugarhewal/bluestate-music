@@ -29,15 +29,6 @@ const NavLinks = () => {
             <span>All Beats</span>
           </span>
         </Link>
-
-        <Link
-          to={"/search"}
-          className={`icon uni-link ${isActive("/search") ? "active" : ""}`}
-        >
-          <span className="icon-child">
-            <span>Search</span>
-          </span>
-        </Link>
       </div>
     </div>
   );

@@ -5,8 +5,6 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Home from "./pages/Routes/home/Home";
 import Tracks from "./pages/Routes/track/Tracks";
 import TrackInfo from "./pages/Routes/show_track/TrackInfo";
-import Search from "./pages/Routes/search/Search";
-import Library from "./pages/Routes/library/Library";
 import Admin from "./pages/admin/SecurityCheck";
 import EditBeat from "./pages/CRUD/UpdatePage";
 
@@ -30,10 +28,6 @@ const App = () => {
         <Route path="/tracks" element={<Tracks />}></Route>
 
         <Route path="/track/:id" element={<TrackInfo />}></Route>
-
-        <Route path="/library" element={<Library />}></Route>
-
-        <Route path="/search" element={<Search />}></Route>
 
         <Route path="/admin" element={<Admin />}></Route>
 

@@ -30,7 +30,6 @@
 @import "./pages/Routes/home/HeroResponsive.scss";
 
 // Track
-@import "./pages/Routes/track/Track.scss";
 @import "./pages/Routes/track/TrackContainer.scss";
 @import "./pages/Routes/track/TrackCard.scss";
 @import "./pages/Routes/track/TrackResponsive.scss";
@@ -40,13 +39,6 @@
 @import "./pages/Routes/show_track/ShowResponsive.scss";
 @import "./pages/Routes/show_track/ShowTrackMore.scss";
 @import "./pages/Routes/show_track/RelatedTracks.scss";
-
-// LIBRARY
-@import "./pages/Routes/library/Library.scss";
-
-// SEARCH
-@import "./pages/Routes/search/Search.scss";
-@import "./pages/Routes/search/SearchResponsive.scss";
 
 // ADMIN
 @import "./pages/admin/AdminPanel.scss";
