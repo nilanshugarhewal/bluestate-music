@@ -1,47 +1,48 @@
 // ALL FONT STYLES & TEXT FORMATTING
 
 @font-face {
+  font-family: "Neue Metana Next";
+  src: url("../../assets/fonts/Neue-Metana-Next-Free-Personal-Use/NeueMetanaNext-SemiBold.otf") format("opentype");
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
   font-family: "REGULAR";
-  src: url("../../assets/fonts/sf-pro-display/SFPRODISPLAYREGULAR.OTF")
-    format("opentype");
+  src: url("../../assets/fonts/sf-pro-display/SFPRODISPLAYREGULAR.OTF") format("opentype");
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
   font-family: "BOLD";
-  src: url("../../assets/fonts/sf-pro-display/SFPRODISPLAYBOLD.OTF")
-    format("opentype");
+  src: url("../../assets/fonts/sf-pro-display/SFPRODISPLAYBOLD.OTF") format("opentype");
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
   font-family: "Aventa Regular";
-  src: url("../../assets/fonts/aventa-font-family/Aventa-Regular.woff")
-    format("woff");
+  src: url("../../assets/fonts/aventa-font-family/Aventa-Regular.woff") format("woff");
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
   font-family: "Aventa Bold";
-  src: url("../../assets/fonts/aventa-font-family/Aventa-Bold.woff")
-    format("woff");
+  src: url("../../assets/fonts/aventa-font-family/Aventa-Bold.woff") format("woff");
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
   font-family: "Aventa Variable";
-  src: url("../../assets/fonts/aventa-font-family/AventaVariable.woff")
-    format("woff");
+  src: url("../../assets/fonts/aventa-font-family/AventaVariable.woff") format("woff");
   font-weight: normal;
   font-style: normal;
 }
 
 body {
-  font-family: $font-main;
   font-weight: 500;
 }
 

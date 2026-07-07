@@ -5,97 +5,81 @@
 .navbar {
   width: 100vw;
   height: auto;
-  position: sticky;
+  position: fixed;
   top: 0;
   z-index: 10000;
-  border-bottom: 1px solid $bg-border;
-  background-color: $bg-secondary;
 
   .navbar-container {
     width: 100%;
     height: auto;
     position: relative;
-    padding: 8px getSpacing(xl);
+    padding: getSpacing(md) getSpacing(xl);
     display: grid;
     grid-template-columns: repeat(3, 1fr);
 
-    .navbar-logo {
+    .navbar-left {
       width: 100%;
       height: 100%;
       display: flex;
       align-items: center;
-      justify-content: center;
+      justify-content: flex-start;
 
       .bluestate-logo {
         width: 150px;
         height: auto;
       }
-    }
 
-    .navbar-inner {
-      width: auto;
-      height: auto;
-      display: flex;
-      justify-content: flex-end;
-
-      .navbar-group {
-        width: auto;
-        height: auto;
-        // border-radius: 999px;
-        padding: 4px;
-        z-index: 80;
-        // border: 2px solid $bg-border;
+      p {
+        color: $primary;
+        font-weight: 700;
       }
     }
 
-    .navbar-navigations {
-      width: 100%;
+    .navbar-centre {
+      width: auto;
       height: auto;
       display: flex;
-      align-items: center;
-      justify-content: flex-start;
+      justify-content: center;
+    }
 
-      .navbar-previous {
+    .navbar-right {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+
+      .navbar-listen {
         width: auto;
-        height: 32px;
-        padding: 0 10px;
-        z-index: 80;
+        height: auto;
         display: flex;
         align-items: center;
-        gap: 10px;
-        cursor: pointer;
+        gap: getSpacing(sm);
 
-        .navbar-previous-span {
-          width: 32px;
-          height: 32px;
+        .navbar-listen-text {
+          width: auto;
+          height: auto;
+          font-size: 16px;
+        }
+
+        .navbar-listen-icon {
+          width: 28px;
+          height: 28px;
           display: flex;
           align-items: center;
           justify-content: center;
-          background-color: $bg-border;
+          cursor: pointer;
+          transition: opacity 0.3s ease;
 
-          .navbar-previous-icon {
-            width: 20px;
-            height: 12px;
-            opacity: 40%;
-
+          img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
           }
 
           &:hover {
-
-            background-color: $primary;
-
-            .navbar-previous-icon {
-              opacity: 100%;
-            }
+            opacity: 0.8;
           }
-
-        }
-
-        .navbar-previous-icon-divider {
-          width: 2px;
-          height: 15px;
-          background-color: rgba($color: #fff, $alpha: 15%);
-          border-radius: 999px;
         }
       }
     }

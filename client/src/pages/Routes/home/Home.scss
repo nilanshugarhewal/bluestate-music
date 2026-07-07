@@ -1,0 +1,93 @@
+@use "../../../sass/abstracts/variables" as var;
+@use "../../../sass/abstracts/functions" as fn;
+
+.home {
+  width: 100vw;
+  height: auto;
+  position: relative;
+
+  .hero-section {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    row-gap: fn.getSpacing(xl);
+
+    .hero-top {
+      width: 100%;
+      height: auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      row-gap: fn.getSpacing(md);
+
+      .hero-text {
+        width: 100%;
+        height: auto;
+        font-size: 6rem;
+        font-family: var.$font-main;
+        text-transform: uppercase;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        line-height: .8;
+      }
+
+      .hero-sub-text {
+        width: 100%;
+        height: auto;
+        text-align: center;
+        color: var.$primary;
+        text-decoration: underline;
+      }
+    }
+
+    .hero-bottom {
+      width: 100%;
+      height: auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      .hero-photo-grid {
+        width: 100%;
+        height: 100%;
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        column-gap: fn.getSpacing(md);
+
+        .hero-photo {
+          width: 100%;
+          height: auto;
+          background-color: red;
+        }
+      }
+    }
+  }
+
+  .home-beat-section {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    row-gap: fn.getSpacing(lg);
+
+    .home-beat-heading {
+      width: 100%;
+      height: auto;
+      display: flex;
+      justify-content: center;
+      font-size: 2rem;
+      font-family: var.$font-main;
+      text-transform: uppercase;
+    }
+  }
+
+  .home-content-container {
+    width: 100%;
+    height: auto;
+  }
+}

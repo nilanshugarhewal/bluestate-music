@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 
+import "./Home.scss"
+
 import TrackGenre from "../../../components/TrackWrapper/TrackGenre";
 import Loading from "../../../components/Loading/Loading";
 import Footer from "../../../layouts/Footer/Footer";
@@ -66,15 +68,44 @@ const Home = () => {
   return (
     <div className="home">
 
-      <PageHeroText />
-
-      {beats.all.length > 0 ? (
-        <div className="home-content-container">
-          <TrackGenre allBeats={beats.random1.slice(0, 8)} />
+      <div className="hero-section">
+        <div className="hero-top">
+          <div className="hero-text">
+            <span>PETRICHOR</span>
+            <span>vol. 1</span>
+          </div>
+          <div className="hero-sub-text">
+            New Type Beat Collection (Coming Soon!)
+          </div>
         </div>
-      ) : (
-        <Loading />
-      )}
+
+        <div className="hero-bottom">
+          <div className="hero-photo-grid">
+            <img className="hero-photo" src="/assets/logo/bluestate_logo.png" alt="" />
+            <img className="hero-photo" src="/assets/logo/bluestate_logo.png" alt="" />
+            <img className="hero-photo" src="/assets/logo/bluestate_logo.png" alt="" />
+            <img className="hero-photo" src="/assets/logo/bluestate_logo.png" alt="" />
+            <img className="hero-photo" src="/assets/logo/bluestate_logo.png" alt="" />
+            <img className="hero-photo" src="/assets/logo/bluestate_logo.png" alt="" />
+            <img className="hero-photo" src="/assets/logo/bluestate_logo.png" alt="" />
+          </div>
+        </div>
+      </div>
+
+      <div className="home-beat-section">
+        <div className="home-beat-heading">
+          Newest Beats
+        </div>
+        {beats.all.length > 0 ? (
+          <div className="home-content-container">
+            <TrackGenre allBeats={beats.random1.slice(0, 8)} />
+          </div>
+        ) : (
+          <Loading />
+        )}
+      </div>
+
+
 
       <Footer />
 

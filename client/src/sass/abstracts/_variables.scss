@@ -1,27 +1,36 @@
 // ALL THE VARIABLES
 
 // COLORS
-// $primary: #fa2d48;
+$red: #F93434;
+$white: #fff;
+
+$black: #121212;
+$dark: #1d1d1d;
+$dark2: #2d2d2d;
+$grey: #848484;
+
 $primary: #5b76f7;
 
 $fg-primary: #ffffff;
-$fg-secondary: rgba(255, 255, 255, 0.5);
+$fg-secondary: #898989;
 
 $icons: #9899a0;
 
-$bg-primary: #080808;
+$bg-primary: #111111;
 $bg-secondary: #161616;
 $bg-tertiary: #242424;
 
 $bg-border: rgba(#363638, 0.5);
 
 // FONTS
-$font-main: "SF Pro", sans-serif;
+// $font-main: "SF Pro", sans-serif;
 $font-bold: "SF Pro Bold", sans-serif;
 
 $font-a-regular: "Aventa Regular", sans-serif;
 $font-a-bold: "Aventa Bold", sans-serif;
 $font-a-variable: "Aventa Variable", sans-serif;
+
+$font-main: "Neue Metana Next", sans-serif;
 
 // CUBIC BEZIERR
 $anim: cubic-bezier(0.25, 0.46, 0.45, 0.94);

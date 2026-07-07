@@ -1,22 +1,27 @@
 // TO REMOVE OR ADD DEFAULT BROWSING STYLES
+@use "../abstracts/variables" as var;
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
+  -ms-overflow-style: none;
+  /* IE and Edge */
   user-select: none;
 }
 
 *::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, Opera */
+  display: none;
+  /* Chrome, Safari, Opera */
 }
 
 body {
-  background-color: #171717;
+  background-color: var.$black;
   color: #ffffff;
   letter-spacing: 0.8px;
+  font-family: 'Mona Sans', sans-serif;
 }
 
 .fff-logo {

@@ -1,6 +1,3 @@
-
-
-
 import "./BeatCard.scss";
 
 export const BeatCard = ({ beat, handlePlay }: any) => {
@@ -20,7 +17,7 @@ export const BeatCard = ({ beat, handlePlay }: any) => {
                     <p className="beat-card-title">{beat.title}</p>
                 </div>
 
-                <hr />
+                <div className="beat-info-divider"></div>
 
                 <div className="beat-card-bottom">
                     <span className="beat-card-bpm">{beat.bpm} BPM</span>
@@ -33,8 +30,6 @@ export const BeatCard = ({ beat, handlePlay }: any) => {
                         ))}
                     </div>
                 </div>
-
-                <hr />
             </div>
         </div>
     );
