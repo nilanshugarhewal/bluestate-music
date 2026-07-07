@@ -12,6 +12,7 @@ import EditBeat from "./pages/CRUD/UpdatePage";
 import Nav from "./layouts/Navbar/Navbar";
 import MusicPlayer from "./components/MusicPlayer/MusicPlayer";
 import CreatePage from "./pages/CRUD/CreatePage";
+import Footer from "./layouts/Footer/Footer";
 
 // MAIN APP
 const App = () => {
@@ -37,6 +38,8 @@ const App = () => {
 
         <Route path="/" element={<Navigate to="/home" replace />} />
       </Routes>
+
+      <Footer />
 
       <MusicPlayer />
 

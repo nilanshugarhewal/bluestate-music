@@ -151,46 +151,44 @@ const TrackInfo = () => {
             <img src={beat.coverImage} alt={beat.title} />
           </div>
 
-          <div className="ti-details">
-            <div className="ti-header-row">
-              <button className="ti-play-btn" onClick={handlePlay}>
-                {playing ? <PauseCircleIcon weight="fill" /> : <PlayCircleIcon weight="fill" />}
-              </button>
-              <h1 className="ti-title">{beat.title}</h1>
-            </div>
+          <div className="ti-details-container">
+            <div className="ti-details">
+              <div className="ti-header-row">
+                <button className="ti-play-btn" onClick={handlePlay}>
+                  {playing ? <PauseCircleIcon weight="fill" /> : <PlayCircleIcon weight="fill" />}
+                </button>
+                <span className="ti-title">{beat.title}</span>
+              </div>
 
-            <p className="ti-artist">BlueState</p>
+              <span className="ti-artist">BlueState</span>
 
-            <div className="ti-badges">
-              {beat.bpm && (
-                <span className="ti-badge">
-                  <span className="ti-badge-icon bpm-box">BPM</span> {beat.bpm}
-                </span>
+              <div className="ti-badges">
+                {beat.bpm && (
+                  <span className="ti-badge">
+                    <span className="bpm-box">{beat.bpm} BPM</span>
+                  </span>
+                )}
+
+                <div className="middot"></div>
+
+                {beat.scale && (
+                  <span className="ti-badge">
+                    <MusicNoteIcon weight="bold" /> {beat.scale}
+                  </span>
+                )}
+
+                <div className="middot"></div>
+
+                {beat.createdAt && (
+                  <span className="ti-badge">
+                    <ClockIcon weight="bold" /> {formatDate(beat.createdAt)}
+                  </span>
+                )}
+              </div>
+
+              {beat.description && (
+                <p className="ti-description">{beat.description}</p>
               )}
-              {beat.scale && (
-                <span className="ti-badge">
-                  <MusicNoteIcon weight="bold" /> {beat.scale}
-                </span>
-              )}
-              {beat.createdAt && (
-                <span className="ti-badge">
-                  <ClockIcon weight="bold" /> {formatDate(beat.createdAt)}
-                </span>
-              )}
-            </div>
-
-            {beat.description && (
-              <p className="ti-description">{beat.description}</p>
-            )}
-
-            <div className="ti-actions-row">
-              <button className="ti-btn-buy">
-                <ShoppingBagIcon weight="bold" /> {displayPrice}
-              </button>
-
-              <button className="ti-btn-share">
-                <ShareNetworkIcon weight="bold" /> SHARE
-              </button>
 
               {beat.genre && beat.genre.length > 0 && (
                 <div className="ti-tags">
@@ -200,11 +198,55 @@ const TrackInfo = () => {
                 </div>
               )}
             </div>
+
+            <div className="ti-actions-row">
+              <button className="ti-btn">
+                {displayPrice}
+              </button>
+
+              <button className="ti-btn">
+                <ShareNetworkIcon weight="bold" /> SHARE
+              </button>
+            </div>
           </div>
         </div>
 
-        {/* --- Progress Bar Section (Replaces Waveform) --- */}
-        {/* <div className="ti-progress-section">
+        {/* --- Tabs & Related Tracks --- */}
+        <div className="ti-tabs">
+          <button className="ti-tab">RELATED TRACKS</button>
+        </div>
+
+        <div className="ti-related-tracks">
+          {/* <div className="ti-table-header">
+            <span className="th-title">TITLE</span>
+            <span className="th-time">TIME</span>
+            <span className="th-bpm">BPM</span>
+            <span className="th-tags">TAGS</span>
+          </div> */}
+
+          <div className="ti-related-list">
+            {relatedTracks.length > 0 ? (
+              relatedTracks.map(t => (
+                <BeatRow key={t._id} beat={t} handlePlay={() => {
+                  dispatch(playTrack(t));
+                }} />
+              ))
+            ) : (
+              <p className="ti-no-related">No related tracks found.</p>
+            )}
+          </div>
+        </div>
+      </div>
+
+    </div>
+  );
+};
+
+export default TrackInfo;
+
+
+{/* --- Progress Bar Section (Replaces Waveform) --- */ }
+{/* <div className="ti-progress-section">
           <div
             className="ti-progress-bar-wrapper"
             ref={barRef}
@@ -235,37 +277,3 @@ const TrackInfo = () => {
             <span>{isCurrent ? formatTime(durationSec) : "0:00"}</span>
           </div>
         </div> */}
-
-        {/* --- Tabs & Related Tracks --- */}
-        <div className="ti-tabs">
-          <button className="ti-tab active">RELATED TRACKS</button>
-        </div>
-
-        <div className="ti-related-tracks">
-          <div className="ti-table-header">
-            <span className="th-title">TITLE</span>
-            <span className="th-time">TIME</span>
-            <span className="th-bpm">BPM</span>
-            <span className="th-tags">TAGS</span>
-          </div>
-
-          <div className="ti-related-list">
-            {relatedTracks.length > 0 ? (
-              relatedTracks.map(t => (
-                <BeatRow key={t._id} beat={t} handlePlay={() => {
-                  dispatch(playTrack(t));
-                }} />
-              ))
-            ) : (
-              <p className="ti-no-related">No related tracks found.</p>
-            )}
-          </div>
-        </div>
-      </div>
-
-      <Footer />
-    </div>
-  );
-};
-
-export default TrackInfo;

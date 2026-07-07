@@ -103,11 +103,6 @@ const Home = () => {
           <Loading />
         )}
       </div>
-
-
-
-      <Footer />
-
     </div>
   );
 };

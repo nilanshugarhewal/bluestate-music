@@ -155,8 +155,6 @@ const Tracks = () => {
       ) : (
         <Loading />
       )}
-
-      <Footer />
     </div>
   );
 };
