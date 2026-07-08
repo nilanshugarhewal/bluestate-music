@@ -1,6 +1,6 @@
-@use "../../sass/abstracts/variables" as *;
-@use "../../sass/abstracts/mixins" as *;
-@use "../../sass/abstracts/functions" as *;
+@use "../../sass/abstracts/variables" as var;
+@use "../../sass/abstracts/mixins" as mix;
+@use "../../sass/abstracts/functions" as fn;
 
 .navbar {
   width: 100vw;
@@ -8,81 +8,39 @@
   position: fixed;
   top: 0;
   z-index: 10000;
-  background: linear-gradient($black, transparent);
+  background: linear-gradient(var.$black, transparent);
 
   .navbar-container {
     width: 100%;
     height: auto;
     position: relative;
-    padding: getSpacing(md) getSpacing(xl);
+    padding: fn.getSpacing(md) fn.getSpacing(xl);
     display: grid;
     grid-template-columns: repeat(3, 1fr);
 
-    .navbar-left {
-      width: 100%;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: flex-start;
+    @include mix.respond(xl) {
+      padding: fn.getSpacing(md) fn.getSpacing(lg);
+    }
 
-      .bluestate-logo {
-        width: 150px;
-        height: auto;
+    @include mix.respond(lg) {
+      grid-template-columns: repeat(2, 1fr);
+
+      .navbar-center {
+        justify-content: flex-end;
       }
 
-      p {
-        color: $primary;
-        font-weight: 700;
+      .navbar-right {
+        display: none;
       }
     }
 
-    .navbar-centre {
-      width: auto;
-      height: auto;
-      display: flex;
-      justify-content: center;
-    }
+    @include mix.respond(sm) {
+      grid-template-columns: repeat(1, 1fr);
 
-    .navbar-right {
-      width: 100%;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-
-      .navbar-listen {
-        width: auto;
-        height: auto;
-        display: flex;
-        align-items: center;
-        gap: getSpacing(sm);
-
-        .navbar-listen-text {
-          width: auto;
-          height: auto;
-          font-size: 16px;
-        }
-
-        .navbar-listen-icon {
-          width: 28px;
-          height: 28px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          cursor: pointer;
-          transition: opacity 0.3s ease;
-
-          img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-          }
-
-          &:hover {
-            opacity: 0.8;
-          }
-        }
+      .navbar-center {
+        display: none;
       }
     }
+
   }
 }

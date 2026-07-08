@@ -32,6 +32,16 @@ $font-a-variable: "Aventa Variable", sans-serif;
 
 $font-main: "Neue Metana Next", sans-serif;
 
+// breakpoints
+$breakpoints: (
+  xs: 480px,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px,
+  xxl: 1400px
+);
+
 // CUBIC BEZIERR
 $anim: cubic-bezier(0.25, 0.46, 0.45, 0.94);
 

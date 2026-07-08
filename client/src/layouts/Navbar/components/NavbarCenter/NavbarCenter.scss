@@ -1,0 +1,40 @@
+@use "../../../../sass/abstracts/functions" as fun;
+@use "../../../../sass/abstracts/mixins" as mix;
+@use "../../../../sass/abstracts/variables" as var;
+
+.navbar-center {
+  width: auto;
+  height: auto;
+  display: flex;
+  justify-content: center;
+
+  .navbar-group {
+    width: auto;
+    height: auto;
+    z-index: 80;
+
+    .nav-links {
+      @include mix.flex-center;
+      gap: fun.getSpacing(xl);
+
+      .icon {
+        .icon-child {
+          @include mix.flex-center;
+          color: var.$grey;
+        }
+
+        &:hover {
+          .icon-child {
+            color: var.$white;
+          }
+        }
+      }
+
+      .icon.active {
+        .icon-child {
+          color: var.$white;
+        }
+      }
+    }
+  }
+}
