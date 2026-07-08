@@ -4,7 +4,6 @@ import "./Home.scss"
 
 import TrackGenre from "../../../components/TrackWrapper/TrackGenre";
 import Loading from "../../../components/Loading/Loading";
-import Footer from "../../../layouts/Footer/Footer";
 
 const Home = () => {
   const apiRandom = process.env.REACT_APP_API_RANDOM;
@@ -62,6 +61,7 @@ const Home = () => {
     };
 
     loadBeats();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [apiRandom, apiEnv]);
 
   return (

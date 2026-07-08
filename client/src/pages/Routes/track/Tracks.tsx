@@ -1,11 +1,10 @@
 import { useEffect, useState, useMemo } from "react";
 import "./Track.scss";
-import { MagnifyingGlassIcon, FunnelIcon } from "@phosphor-icons/react";
+import { MagnifyingGlassIcon} from "@phosphor-icons/react";
 
 import TrackGenre from "../../../components/TrackWrapper/TrackGenre";
 
 import Loading from "../../../components/Loading/Loading";
-import Footer from "../../../layouts/Footer/Footer";
 
 const Tracks = () => {
   const apiLink = process.env.REACT_APP_API_URL;

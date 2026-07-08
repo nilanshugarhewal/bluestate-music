@@ -40,7 +40,7 @@ const EditBeat = () => {
         console.error(err);
         setLoading(false);
       });
-  }, [id]);
+  }, [apiLink, id]);
 
   // Handle input changes (single fields)
   const handleChange = (
