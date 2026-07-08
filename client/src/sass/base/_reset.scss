@@ -37,3 +37,9 @@ body {
     object-fit: cover;
   }
 }
+
+@media (max-width: 1000px) {
+  * {
+    display: none !important;
+  }
+}
