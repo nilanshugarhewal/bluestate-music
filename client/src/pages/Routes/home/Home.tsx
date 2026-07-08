@@ -6,6 +6,7 @@ import HeroSection from "./components/HeroSection/HeroSection";
 
 import TrackGenre from "../../../components/TrackWrapper/TrackGenre";
 import Loading from "../../../components/Loading/Loading";
+import { Link } from "react-router-dom";
 
 const Home = () => {
   const apiRandom = process.env.REACT_APP_API_RANDOM;
@@ -69,11 +70,12 @@ const Home = () => {
   return (
     <div className="home">
       <HeroSection />
- 
+
       <div className="home-beat-section">
         <div className="home-beat-heading">
           Newest Beats
         </div>
+
         {beats.all.length > 0 ? (
           <div className="home-content-container">
             <TrackGenre allBeats={beats.random1.slice(0, 8)} />
@@ -81,6 +83,10 @@ const Home = () => {
         ) : (
           <Loading />
         )}
+
+        <div className="home-view-all-beat">
+          <Link to="/tracks" className="view-all-beats-link">View All</Link>
+        </div>
       </div>
     </div>
   );

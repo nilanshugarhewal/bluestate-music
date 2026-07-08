@@ -12,6 +12,7 @@
 
     @include mix.respond(sm) {
         row-gap: fn.getSpacing(lg);
+        margin-top: 128px;
     }
 
     .footer-top {
