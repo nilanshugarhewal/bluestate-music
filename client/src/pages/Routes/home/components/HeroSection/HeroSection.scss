@@ -41,12 +41,18 @@
         }
     }
 
+    .hero-top-2 {
+        display: none;
+    }
+
     .hero-bottom {
         width: 100%;
         height: auto;
         display: flex;
         flex-direction: column;
         align-items: center;
+
+
 
         .hero-photo-grid {
             width: 100%;
@@ -109,22 +115,48 @@
     }
 
     @include mix.respond(sm) {
-        padding: 8rem fn.getSpacing(lg);
+        padding: 8rem fn.getSpacing(lg) 6rem;
 
         .hero-top {
-            .hero-text {
-                font-size: 2rem;
-            }
-
-            .hero-sub-text {
-                font-size: 12px;
-            }
+            display: none;
         }
 
         .hero-bottom {
-            .hero-photo-grid {
-                gap: fn.getSpacing(sm);
-                grid-template-columns: repeat(2, 1fr);
+            display: none;
+        }
+
+        .hero-top-2 {
+            width: 100%;
+            height: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            row-gap: fn.getSpacing(md);
+
+            .hero-text-2 {
+                width: 100%;
+                height: auto;
+                font-size: 2rem;
+                font-family: var.$font-main;
+                text-transform: uppercase;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                line-height: .8;
+
+                #hero-artist-text {
+                    color: var.$primary;
+                }
+            }
+
+            .hero-sub-text-2 {
+                width: 100%;
+                height: auto;
+                text-align: center;
+                color: var.$primary;
+                text-decoration: underline;
+                font-size: 12px;
             }
         }
     }

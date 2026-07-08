@@ -13,6 +13,17 @@ const HeroSection = () => {
                 </div>
             </div>
 
+            <div className="hero-top-2">
+                <div className="hero-text-2">
+                    <span>This is</span>
+                    <span id="hero-artist-text">bluestate</span>
+                </div>
+                <div className="hero-sub-text-2">
+                    <div>Typebeats &middot; Originals &middot; Remixes</div>
+                    <div>BlueState is a pop music producer from India.</div>
+                </div>
+            </div>
+
             <div className="hero-bottom">
                 <div className="hero-photo-grid">
                     <img className="hero-photo" src="/assets/logo/bluestate_logo.png" alt="" />

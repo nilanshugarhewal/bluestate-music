@@ -7,7 +7,7 @@ import HeroSection from "./components/HeroSection/HeroSection";
 import TrackGenre from "../../../components/TrackWrapper/TrackGenre";
 import Loading from "../../../components/Loading/Loading";
 import { Link } from "react-router-dom";
-
+ 
 const Home = () => {
   const apiRandom = process.env.REACT_APP_API_RANDOM;
   const apiEnv = process.env.REACT_APP_API_URL;
