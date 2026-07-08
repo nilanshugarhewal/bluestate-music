@@ -1,6 +1,6 @@
-@use "../../sass/abstracts/variables" as *;
-@use "../../sass/abstracts/mixins" as *;
-@use "../../sass/abstracts/functions" as *;
+@use "../../sass/abstracts/variables" as var;
+@use "../../sass/abstracts/mixins" as mix;
+@use "../../sass/abstracts/functions" as fn;
 
 .beat-row {
     width: 100%;
@@ -9,18 +9,22 @@
     display: grid;
     grid-template-columns: 30% 1fr 10%;
     align-items: center;
-    padding: getSpacing(sm);
-    border: 1px solid $dark2;
+    padding: fn.getSpacing(sm);
+    border: 1px solid var.$dark2;
 
     &:hover {
-        background-color: $dark;
+        background-color: var.$dark;
     }
 
+    @include mix.respond(sm) {
+        grid-template-columns: 1fr auto;
+        // background-color: var.$dark;
+    }
 
     .beat-row-left {
         display: flex;
         align-items: center;
-        gap: getSpacing(md);
+        gap: fn.getSpacing(md);
 
         .beat-row-image-container {
             width: 4rem;
@@ -62,13 +66,13 @@
 
             .beat-row-title {
                 font-size: 16px;
-                font-family: $font-bold;
-                color: $fg-primary;
+                font-family: var.$font-bold;
+                color: var.$fg-primary;
             }
 
             .beat-row-artist {
                 font-size: 12px;
-                color: $fg-secondary;
+                color: var.$fg-secondary;
             }
         }
     }
@@ -80,23 +84,27 @@
         grid-template-columns: 1fr 1fr 1fr 2fr;
         align-items: center;
 
+        @include mix.respond(sm) {
+            display: none;
+        }
+
         .beat-row-middle-element {
             font-size: 14px;
-            color: $grey;
+            color: var.$grey;
         }
 
 
         .beat-row-genres {
             display: flex;
-            gap: getSpacing(xs);
+            gap: fn.getSpacing(xs);
             justify-content: flex-start;
 
             .beat-row-genre-pill {
                 font-size: 12px;
                 padding: 4px 8px;
-                background-color: $primary;
+                background-color: var.$primary;
                 font-weight: 700;
-                color: $black;
+                color: var.$black;
             }
         }
     }
@@ -105,23 +113,27 @@
     .beat-row-right {
         display: flex;
         align-items: center;
-        gap: getSpacing(md);
+        gap: fn.getSpacing(md);
         justify-content: flex-end;
-        flex: 1;
-        // background-color: purple;
 
         .beat-row-price {
             font-size: 14px;
-            border: 1px solid $dark2;
-            padding: getSpacing(sm) getSpacing(md);
-            
+            border: 1px solid var.$dark2;
+            padding: fn.getSpacing(sm) fn.getSpacing(md);
+
+            @include mix.respond(sm) {
+                border-color: var.$primary;
+                border-radius: 4px;
+                padding: fn.getSpacing(xs) fn.getSpacing(sm);
+            }
+
             &:hover {
-                background-color: $dark2;
+                background-color: var.$dark2;
             }
 
             &:active {
-                background-color: $primary;
-                color: $black;
+                background-color: var.$primary;
+                color: var.$black;
                 border: none;
             }
         }
@@ -132,8 +144,8 @@
 @media (max-width: 768px) {
     .beat-row {
         flex-wrap: wrap;
-        padding: getSpacing(sm);
-        gap: getSpacing(sm);
+        padding: fn.getSpacing(sm);
+        gap: fn.getSpacing(sm);
 
         .beat-row-left {
             flex: 1 1 100%;

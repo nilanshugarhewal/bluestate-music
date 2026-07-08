@@ -1,6 +1,6 @@
-@use "../../sass/abstracts/functions" as *;
-@use "../../sass/abstracts/mixins" as *;
-@use "../../sass/abstracts/variables" as *;
+@use "../../sass/abstracts/functions" as fn;
+@use "../../sass/abstracts/mixins" as mix;
+@use "../../sass/abstracts/variables" as var;
 
 .music-player-container {
   position: fixed;
@@ -10,16 +10,101 @@
   height: auto;
   padding: 10px;
 
+  .mp-progress-container-2 {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    // background-color: red;
+    display: none;
+
+    @include mix.respond(sm) {
+      display: flex;
+      column-gap: fn.getSpacing(sm);
+    }
+
+    .mp-time {
+      color: var.$grey;
+      text-align: center;
+
+      @include mix.respond(sm) {
+        font-size: 10px;
+      }
+    }
+
+    .mp-progress-bar-wrapper {
+      flex: 1;
+      height: 12px;
+      /* Hitbox */
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      position: relative;
+
+      .mp-progress-bg {
+        width: 100%;
+        height: 4px;
+        background-color: var.$dark2;
+        border-radius: 2px;
+        position: relative;
+      }
+
+      .mp-progress-fill {
+        height: 100%;
+        background-color: var.$primary;
+        border-radius: 2px;
+        position: relative;
+      }
+
+      .mp-progress-handle {
+        position: absolute;
+        right: -5px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 10px;
+        height: 10px;
+        background-color: var.$white;
+        border-radius: 50%;
+        opacity: 0;
+        transition: opacity 0.1s ease;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+      }
+
+      .mp-tooltip {
+        position: absolute;
+        bottom: 20px;
+        transform: translateX(-50%);
+        padding: 4px 8px;
+        background: rgba(0, 0, 0, 0.8);
+        color: var.$white;
+        border-radius: 4px;
+        font-size: 11px;
+        pointer-events: none;
+
+        @include mix.respond(sm) {
+          display: none;
+        }
+      }
+    }
+  }
+
   .music-player {
     width: 100%;
     height: auto;
     padding: 10px 20px;
     display: grid;
     grid-template-columns: 2fr 1fr 1fr;
-    column-gap: getSpacing(md);
+    column-gap: fn.getSpacing(md);
     align-items: center;
     z-index: 99999;
-    border: 1px solid $dark2;
+    border: 1px solid var.$dark2;
+
+    @include mix.respond(sm) {
+      border-radius: 8px;
+      padding: 8px;
+      grid-template-columns: auto 1fr;
+      direction: rtl;
+    }
+
 
     /* CENTER: Controls and Progress */
     .mp-left {
@@ -27,17 +112,23 @@
       // flex-direction: column;
       align-items: center;
       width: 100%;
-      gap: getSpacing(md);
+      gap: fn.getSpacing(md);
+
+      @include mix.respond(sm) {
+        display: flex;
+        justify-content: flex-end;
+      }
 
       .mp-controls {
         display: flex;
         align-items: center;
-        gap: getSpacing(md);
+        gap: fn.getSpacing(md);
+
 
         button {
           background: none;
           border: none;
-          color: $grey;
+          color: var.$grey;
           cursor: pointer;
           display: flex;
           align-items: center;
@@ -50,16 +141,16 @@
           }
 
           &:hover {
-            color: $white;
+            color: var.$white;
           }
         }
 
         .mp-play-btn {
           width: 40px;
           height: 40px;
-          background-color: $primary;
+          background-color: var.$primary;
           border-radius: 50%;
-          color: $white;
+          color: var.$white;
 
           svg {
             width: 20px;
@@ -67,7 +158,13 @@
           }
 
           &:hover {
-            background-color: $dark2;
+            background-color: var.$dark2;
+          }
+        }
+
+        @include mix.respond(sm) {
+          .mp-control-btn {
+            display: none;
           }
         }
       }
@@ -78,10 +175,14 @@
         width: 100%;
         gap: 12px;
         font-size: 12px;
-        color: $white;
+        color: var.$white;
+
+        @include mix.respond(sm) {
+          display: none;
+        }
 
         .mp-time {
-          color: $grey;
+          color: var.$grey;
           text-align: center;
         }
 
@@ -97,14 +198,14 @@
           .mp-progress-bg {
             width: 100%;
             height: 4px;
-            background-color: $dark2;
+            background-color: var.$dark2;
             border-radius: 2px;
             position: relative;
           }
 
           .mp-progress-fill {
             height: 100%;
-            background-color: $primary;
+            background-color: var.$primary;
             border-radius: 2px;
             position: relative;
           }
@@ -116,7 +217,7 @@
             transform: translateY(-50%);
             width: 10px;
             height: 10px;
-            background-color: $white;
+            background-color: var.$white;
             border-radius: 50%;
             opacity: 0;
             transition: opacity 0.1s ease;
@@ -129,7 +230,7 @@
             transform: translateX(-50%);
             padding: 4px 8px;
             background: rgba(0, 0, 0, 0.8);
-            color: $white;
+            color: var.$white;
             border-radius: 4px;
             font-size: 11px;
             pointer-events: none;
@@ -142,7 +243,11 @@
     .mp-center {
       display: flex;
       align-items: center;
-      gap: getSpacing(md);
+      gap: fn.getSpacing(md);
+
+      @include mix.respond(sm) {
+        flex-direction: row-reverse;
+      }
 
       .mp-cover-link {
         width: 40px;
@@ -163,17 +268,21 @@
         display: flex;
         flex-direction: column;
         text-decoration: none;
-        gap: getSpacing(xs);
+        gap: fn.getSpacing(xs);
+
+        @include mix.respond(sm) {
+          text-align: end;
+        }
 
         .mp-title {
-          font-family: $font-bold;
+          font-family: var.$font-bold;
           font-size: 16px;
-          color: $white;
+          color: var.$white;
         }
 
         .mp-artist {
           font-size: 12px;
-          color: $grey;
+          color: var.$grey;
           /* Light gray */
         }
       }
@@ -184,12 +293,16 @@
       display: flex;
       align-items: center;
       justify-content: flex-end;
-      gap: getSpacing(md);
+      gap: fn.getSpacing(md);
+
+      @include mix.respond(sm) {
+        display: none;
+      }
 
       .mp-action-btn {
         background: none;
         border: none;
-        color: $grey;
+        color: var.$grey;
         cursor: pointer;
         display: flex;
         align-items: center;
@@ -202,7 +315,7 @@
         }
 
         &:hover {
-          color: $white;
+          color: var.$white;
         }
       }
     }
@@ -213,7 +326,7 @@
 @media (max-width: 768px) {
   .music-player {
     height: 70px;
-    padding: 0 getSpacing(md);
+    padding: 0 fn.getSpacing(md);
 
     .mp-left {
       width: auto;

@@ -10,7 +10,7 @@ const Tracks = () => {
   const apiLink = process.env.REACT_APP_API_URL;
 
   type Beat = {
-    _id: string;
+    _id: string; 
     title?: string;
     bpm?: number;
     audioUrl: string;
