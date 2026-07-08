@@ -1,3 +1,7 @@
+@use "../../../sass/abstracts/variables" as *;
+@use "../../../sass/abstracts/mixins" as *;
+@use "../../../sass/abstracts/functions" as *;
+
 .track-info-page {
   width: 100vw;
   height: auto;
@@ -18,9 +22,17 @@
     /* --- Hero Section --- */
     .ti-hero {
       display: flex;
-      border: 1px solid $dark2;
-      padding: getSpacing(md);
       column-gap: getSpacing(lg);
+
+      border: 1px solid transparent;
+      // padding: getSpacing(md);
+
+      transition: all 0.3s ease;
+
+      &:hover {
+        border: 1px solid $dark2;
+        padding: getSpacing(md);
+      }
 
       .ti-cover {
         width: 260px;
@@ -90,14 +102,10 @@
             gap: getSpacing(xs);
             color: $grey;
             font-size: 14px;
-
-            .bpm-box {
-              background: $dark;
-              border: 1px solid $dark2;
-              color: $grey;
-              padding: 2px 6px;
-              font-size: 0.75rem;
-            }
+            background: $dark;
+            border: 1px solid $dark2;
+            color: $grey;
+            padding: 2px 6px;
 
             svg {
               width: 16px;
@@ -142,13 +150,13 @@
             font-size: 14px;
             cursor: pointer;
             transition: all 0.2s ease;
-            
+
             svg {
               width: 18px;
               height: 18px;
             }
           }
-          
+
           .ti-btn {
             background: $dark;
             color: $white;
@@ -166,8 +174,10 @@
     /* --- Tabs Section --- */
     .ti-tabs {
       text-align: center;
+
       .ti-tab {
         background: none;
+        font-family: $font-main;
         border: none;
         color: $white;
         font-size: 2rem;
@@ -248,7 +258,7 @@
         background: rgba(255, 255, 255, 0.2);
         border-radius: 2px;
         position: relative;
-        transition: height 0.2s ease,;
+        transition: height 0.2s ease, ;
       }
 
       .ti-progress-fill {

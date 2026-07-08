@@ -1,25 +1,22 @@
-import { Link, useParams } from "react-router-dom";
-import { useEffect, useState, useRef } from "react";
+import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   playTrack,
   pauseTrack,
   resumeTrack,
-  setSeek,
 } from "../../../store/playerSlice";
 import { RootState } from "../../../store";
-import ColorThief from "color-thief-browser";
 import Loading from "../../../components/Loading/Loading";
-import Footer from "../../../layouts/Footer/Footer";
 import { BeatRow } from "../../../components/BeatRow/BeatRow";
 import {
   PlayCircleIcon,
   PauseCircleIcon,
-  ShoppingBagIcon,
   ShareNetworkIcon,
   MusicNoteIcon,
-  ClockIcon,
 } from "@phosphor-icons/react";
+
+import "./ShowTrack.scss";
 
 // ---------- Types ----------
 type Beat = {
@@ -34,27 +31,7 @@ type Beat = {
   price?: string;
   description?: string;
   coverImage?: string;
-  createdAt?: string;
-};
-
-// ---------- Helpers ----------
-const formatTime = (sec: number) =>
-  `${Math.floor(sec / 60)}:${Math.floor(sec % 60)
-    .toString()
-    .padStart(2, "0")}`;
-
-const darken = ([r, g, b]: number[], f = 0.7) =>
-  `rgb(${(r * f) | 0}, ${(g * f) | 0}, ${(b * f) | 0})`;
-
-const formatDate = (dateString?: string) => {
-  if (!dateString) return "";
-  const date = new Date(dateString);
-  if (isNaN(date.getTime())) return dateString;
-  return date.toLocaleDateString("en-US", {
-    month: "long",
-    day: "numeric",
-    year: "numeric",
-  });
+  releaseDate?: string;
 };
 
 // ---------- Component ----------
@@ -62,16 +39,12 @@ const TrackInfo = () => {
   const { id } = useParams();
   const [beat, setBeat] = useState<Beat>();
   const [loading, setLoading] = useState(true);
-  const [bg, setBg] = useState("#18181b");
   const [relatedTracks, setRelatedTracks] = useState<Beat[]>([]);
-  const [hoverTime, setHoverTime] = useState<number | null>(null);
-  const [hoverX, setHoverX] = useState<number>(0);
 
   const dispatch = useDispatch();
-  const { currentTrack, isPlaying, progress, durationSec, currentTimeSec } =
+  const { currentTrack, isPlaying } =
     useSelector((s: RootState) => s.player);
 
-  const barRef = useRef<HTMLDivElement>(null);
   const apiLink = process.env.REACT_APP_API_URL;
   const apiRandom = process.env.REACT_APP_API_RANDOM;
 
@@ -85,19 +58,13 @@ const TrackInfo = () => {
       isCurrent ? (playing ? pauseTrack() : resumeTrack()) : playTrack(beat)
     );
 
-  const handleSeek = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!barRef.current || !durationSec) return;
-    const { left, width } = barRef.current.getBoundingClientRect();
-    dispatch(setSeek(((e.clientX - left) / width) * durationSec));
-  };
-
   // ---------- Fetch Beat & Related Tracks ----------
   useEffect(() => {
     if (!id || !apiLink) return;
 
     // Reset state for new track
     setLoading(true);
-    setBg("#18181b");
+    // setBg("#18181b");
 
     // Fetch the specific track
     fetch(`${apiLink}track/${id}`)
@@ -105,20 +72,6 @@ const TrackInfo = () => {
       .then((data) => {
         setBeat(data);
         setLoading(false);
-
-        if (!data.coverImage) return;
-        const img = new Image();
-        img.crossOrigin = "Anonymous";
-        img.src = data.coverImage;
-        img.onload = () => {
-          try {
-            const thief = new ColorThief();
-            const col = thief.getColor(img);
-            setBg(`linear-gradient(180deg, ${darken(col, 0.9)} 0%, #d6d6d6 100%)`);
-          } catch (err) {
-            console.warn("ColorThief failed:", err);
-          }
-        };
       })
       .catch(console.error);
 
@@ -179,9 +132,9 @@ const TrackInfo = () => {
 
                 <div className="middot"></div>
 
-                {beat.createdAt && (
+                {beat.releaseDate && (
                   <span className="ti-badge">
-                    <ClockIcon weight="bold" /> {formatDate(beat.createdAt)}
+                    {beat.releaseDate}
                   </span>
                 )}
               </div>
@@ -217,13 +170,6 @@ const TrackInfo = () => {
         </div>
 
         <div className="ti-related-tracks">
-          {/* <div className="ti-table-header">
-            <span className="th-title">TITLE</span>
-            <span className="th-time">TIME</span>
-            <span className="th-bpm">BPM</span>
-            <span className="th-tags">TAGS</span>
-          </div> */}
-
           <div className="ti-related-list">
             {relatedTracks.length > 0 ? (
               relatedTracks.map(t => (
@@ -243,37 +189,3 @@ const TrackInfo = () => {
 };
 
 export default TrackInfo;
-
-
-{/* --- Progress Bar Section (Replaces Waveform) --- */ }
-{/* <div className="ti-progress-section">
-          <div
-            className="ti-progress-bar-wrapper"
-            ref={barRef}
-            onClick={handleSeek}
-            onMouseMove={(e) => {
-              if (!barRef.current || !durationSec) return;
-              const rect = barRef.current.getBoundingClientRect();
-              const x = e.clientX - rect.left;
-              const percent = x / rect.width;
-              setHoverX(x);
-              setHoverTime(percent * durationSec);
-            }}
-            onMouseLeave={() => setHoverTime(null)}
-          >
-            {isCurrent && hoverTime !== null && (
-              <div className="ti-tooltip" style={{ left: hoverX }}>
-                {formatTime(hoverTime)}
-              </div>
-            )}
-            <div className="ti-progress-bg">
-              <div className="ti-progress-fill" style={{ width: isCurrent ? `${progress}%` : "0%" }}>
-                <div className="ti-progress-handle"></div>
-              </div>
-            </div>
-          </div>
-          <div className="ti-time-labels">
-            <span>{isCurrent ? formatTime(currentTimeSec) : "0:00"}</span>
-            <span>{isCurrent ? formatTime(durationSec) : "0:00"}</span>
-          </div>
-        </div> */}
