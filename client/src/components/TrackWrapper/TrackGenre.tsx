@@ -5,7 +5,7 @@ import { BeatCard } from "../BeatCard/BeatCard";
 import { BeatRow } from "../BeatRow/BeatRow";
 
 import "./TrackGenre.scss";
-
+ 
 type Beat = {
   _id: string;
   title?: string;

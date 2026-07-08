@@ -1,5 +1,5 @@
 @use "../../sass/abstracts/variables" as *;
-@use "../../sass/abstracts/mixins" as *;
+@use "../../sass/abstracts/mixins" as mix;
 @use "../../sass/abstracts/functions" as *;
 
 .tc-pop {
@@ -7,26 +7,10 @@
   height: auto;
   display: flex;
   flex-direction: column;
-  gap: 14px;
-  margin-top: 24px;
-  z-index: 899;
   padding: 0 getSpacing(xl);
 
-  .tc-pop-heading {
-    width: 100%;
-    height: auto;
-    font-size: 18px;
-    font-family: $font-bold;
-    display: flex;
-    justify-content: space-between;
-    padding: 0 getSpacing(xl);
-
-    span {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      color: $fg-secondary;
-    }
+  @include mix.respond(xl) {
+    padding: 0 getSpacing(md);
   }
 
   .tc-pop-container {
@@ -37,6 +21,18 @@
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 24px;
+
+      @include mix.respond(lg) {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      @include mix.respond(md) {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      @include mix.respond(sm) {
+        grid-template-columns: repeat(1, 1fr);
+      }
     }
 
     &.tc-pop-list {

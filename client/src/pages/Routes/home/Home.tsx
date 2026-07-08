@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 
 import "./Home.scss"
 
+import HeroSection from "./components/HeroSection/HeroSection";
+
 import TrackGenre from "../../../components/TrackWrapper/TrackGenre";
 import Loading from "../../../components/Loading/Loading";
 
@@ -66,31 +68,8 @@ const Home = () => {
 
   return (
     <div className="home">
-
-      <div className="hero-section">
-        <div className="hero-top">
-          <div className="hero-text">
-            <span>PETRICHOR</span>
-            <span>vol. 1</span>
-          </div>
-          <div className="hero-sub-text">
-            New Type Beat Collection (Coming Soon!)
-          </div>
-        </div>
-
-        <div className="hero-bottom">
-          <div className="hero-photo-grid">
-            <img className="hero-photo" src="/assets/logo/bluestate_logo.png" alt="" />
-            <img className="hero-photo" src="/assets/logo/bluestate_logo.png" alt="" />
-            <img className="hero-photo" src="/assets/logo/bluestate_logo.png" alt="" />
-            <img className="hero-photo" src="/assets/logo/bluestate_logo.png" alt="" />
-            <img className="hero-photo" src="/assets/logo/bluestate_logo.png" alt="" />
-            <img className="hero-photo" src="/assets/logo/bluestate_logo.png" alt="" />
-            <img className="hero-photo" src="/assets/logo/bluestate_logo.png" alt="" />
-          </div>
-        </div>
-      </div>
-
+      <HeroSection />
+ 
       <div className="home-beat-section">
         <div className="home-beat-heading">
           Newest Beats
