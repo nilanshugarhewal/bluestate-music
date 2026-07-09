@@ -1,6 +1,6 @@
-@use "../../../sass/abstracts/variables" as *;
-@use "../../../sass/abstracts/mixins" as *;
-@use "../../../sass/abstracts/functions" as *;
+@use "../../../sass/abstracts/variables" as var;
+@use "../../../sass/abstracts/mixins" as mix;
+@use "../../../sass/abstracts/functions" as fn;
 
 .track-info-page {
   width: 100vw;
@@ -11,27 +11,32 @@
   color: #fff;
   margin-top: 6rem;
 
+  @include mix.respond(sm) {
+    padding: 0 1rem;
+    margin-top: 4rem;
+  }
+
   .ti-container {
     width: 100%;
     height: auto;
     flex: 1;
     display: flex;
     flex-direction: column;
-    gap: getSpacing(lg);
+    gap: fn.getSpacing(lg);
+
+    @include mix.respond(sm) {}
 
     /* --- Hero Section --- */
     .ti-hero {
       display: flex;
-      column-gap: getSpacing(lg);
+      column-gap: fn.getSpacing(lg);
+      border: 1px solid var.$dark2;
+      padding: fn.getSpacing(md);
 
-      border: 1px solid transparent;
-      // padding: getSpacing(md);
-
-      transition: all 0.3s ease;
-
-      &:hover {
-        border: 1px solid $dark2;
-        padding: getSpacing(md);
+      @include mix.respond(sm) {
+        flex-direction: column;
+        row-gap: fn.getSpacing(sm);
+        align-items: center;
       }
 
       .ti-cover {
@@ -52,23 +57,32 @@
         flex-direction: column;
         justify-content: space-between;
 
+        @include mix.respond(sm) {
+          align-items: center;
+          row-gap: fn.getSpacing(md);
+        }
+
         .ti-details {
           width: 100%;
           height: 100%;
           display: flex;
           flex-direction: column;
-          gap: getSpacing(md);
+          gap: fn.getSpacing(md);
+
+          @include mix.respond(sm) {
+            align-items: center;
+          }
         }
 
         .ti-header-row {
           display: flex;
           align-items: center;
-          gap: getSpacing(md);
+          gap: fn.getSpacing(md);
 
           .ti-play-btn {
             background: none;
             border: none;
-            color: $primary;
+            color: var.$primary;
             cursor: pointer;
             display: flex;
             align-items: center;
@@ -88,23 +102,27 @@
         }
 
         .ti-artist {
-          color: $grey;
+          color: var.$grey;
         }
 
         .ti-badges {
           display: flex;
           align-items: center;
-          gap: getSpacing(md);
+          gap: fn.getSpacing(md);
+
+          @include mix.respond(sm) {
+            flex-direction: column;
+          }
 
           .ti-badge {
             display: flex;
             align-items: center;
-            gap: getSpacing(xs);
-            color: $grey;
+            gap: fn.getSpacing(xs);
+            color: var.$grey;
             font-size: 14px;
-            background: $dark;
-            border: 1px solid $dark2;
-            color: $grey;
+            background: var.$dark;
+            border: 1px solid var.$dark2;
+            color: var.$grey;
             padding: 2px 6px;
 
             svg {
@@ -125,11 +143,11 @@
         .ti-tags {
           display: flex;
           align-items: center;
-          column-gap: getSpacing(sm);
+          column-gap: fn.getSpacing(sm);
 
           .ti-tag-pill {
-            background: $primary;
-            color: $black;
+            background: var.$primary;
+            color: var.$black;
             padding: 4px 8px;
             font-size: 14px;
             font-weight: 600;
@@ -140,13 +158,13 @@
         .ti-actions-row {
           display: flex;
           align-items: center;
-          gap: getSpacing(md);
+          gap: fn.getSpacing(md);
 
           button {
             display: flex;
             align-items: center;
-            gap: getSpacing(sm);
-            border: 1px solid $dark2;
+            gap: fn.getSpacing(sm);
+            border: 1px solid var.$dark2;
             font-size: 14px;
             cursor: pointer;
             transition: all 0.2s ease;
@@ -158,13 +176,13 @@
           }
 
           .ti-btn {
-            background: $dark;
-            color: $white;
+            background: var.$dark;
+            color: var.$white;
             padding: 8px 12px;
             font-family: "Mona Sans", sans-serif;
 
             &:hover {
-              background: $dark2;
+              background: var.$dark2;
             }
           }
         }
@@ -177,9 +195,9 @@
 
       .ti-tab {
         background: none;
-        font-family: $font-main;
+        font-family: var.$font-main;
         border: none;
-        color: $white;
+        color: var.$white;
         font-size: 2rem;
         cursor: pointer;
         position: relative;
@@ -194,14 +212,14 @@
       .ti-table-header {
         display: grid;
         grid-template-columns: minmax(200px, 1fr) 80px 80px minmax(200px, 2fr) 200px;
-        // padding: 0 getSpacing(md) getSpacing(sm);
+        // padding: 0 fn.getSpacing(md) fn.getSpacing(sm);
         border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        margin-bottom: getSpacing(md);
+        margin-bottom: fn.getSpacing(md);
 
         span {
           font-size: 0.75rem;
           color: #a1a1aa;
-          font-family: $font-bold;
+          font-family: var.$font-bold;
           letter-spacing: 1px;
         }
       }
@@ -209,11 +227,11 @@
       .ti-related-list {
         display: flex;
         flex-direction: column;
-        gap: getSpacing(sm);
+        gap: fn.getSpacing(sm);
 
         .ti-no-related {
           color: #a1a1aa;
-          // padding: getSpacing(xl);
+          // padding: fn.getSpacing(xl);
           text-align: center;
         }
       }
@@ -225,7 +243,7 @@
   /* --- Progress Bar Section --- */
   .ti-progress-section {
     width: 100%;
-    // margin-top: getSpacing(lg);
+    // margin-top: fn.getSpacing(lg);
 
     .ti-progress-bar-wrapper {
       width: 100%;
@@ -300,7 +318,7 @@
       justify-content: space-between;
       font-size: 0.85rem;
       color: rgba(255, 255, 255, 0.7);
-      // font-family: $font-mono;
+      // font-family: var.$font-mono;
     }
   }
 }
@@ -308,6 +326,6 @@
 .middot {
   width: 2px;
   height: 2px;
-  background-color: $grey;
+  background-color: var.$grey;
   border-radius: 50%;
 }

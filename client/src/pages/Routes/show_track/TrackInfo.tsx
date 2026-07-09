@@ -12,7 +12,7 @@ import { BeatRow } from "../../../components/BeatRow/BeatRow";
 import {
   PlayCircleIcon,
   PauseCircleIcon,
-  ShareNetworkIcon,
+  ShareNetworkIcon, 
   MusicNoteIcon,
 } from "@phosphor-icons/react";
 
