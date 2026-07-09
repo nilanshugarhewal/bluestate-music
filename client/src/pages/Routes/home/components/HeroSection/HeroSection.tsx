@@ -5,18 +5,18 @@ const HeroSection = () => {
         <div className="hero-section">
             <div className="hero-top">
                 <div className="hero-text">
-                    <span>PETRICHOR</span>
-                    <span>vol. 1</span>
+                    <span>THIS IS</span>
+                    <span id="hero-artist-text">BLUESTATE</span>
                 </div>
                 <div className="hero-sub-text">
-                    New Type Beat Collection (Coming Soon!)
+                    Typebeats &middot; Originals &middot; Remixes
                 </div>
             </div>
 
             <div className="hero-top-2">
                 <div className="hero-text-2">
                     <span>This is</span>
-                    <span id="hero-artist-text">bluestate</span>
+                    <span id="hero-artist-text-2">bluestate</span>
                 </div>
                 <div className="hero-sub-text-2">
                     <div>Typebeats &middot; Originals &middot; Remixes</div>
