@@ -106,8 +106,6 @@
                 @include mix.respond(sm) {
                     display: block;
                     border: 1px solid var.$primary;
-                    // background-color: var.$primary;
-                    // color: var.$black;
                     padding: 4px 8px;
                     border-radius: 4px;
                 }

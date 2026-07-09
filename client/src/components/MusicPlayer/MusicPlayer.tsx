@@ -102,14 +102,16 @@ const MusicPlayer = () => {
 
   // Seek by clicking on the navbar bar
   const handleSeekClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!audioRef.current || !barRef.current || !durationSec) return;
+    if (!audioRef.current || !durationSec) return;
 
-    const rect = barRef.current.getBoundingClientRect();
+    const rect = e.currentTarget.getBoundingClientRect();
     const clickX = e.clientX - rect.left;
     const percent = clickX / rect.width;
     const seekTime = percent * durationSec;
 
-    audioRef.current.currentTime = seekTime;
+    if (Number.isFinite(seekTime)) {
+      audioRef.current.currentTime = seekTime;
+    }
   };
 
   // Keyboard arrows to seek
@@ -152,8 +154,8 @@ const MusicPlayer = () => {
           ref={barRef}
           onClick={handleSeekClick}
           onMouseMove={(e) => {
-            if (!barRef.current || !durationSec) return;
-            const rect = barRef.current.getBoundingClientRect();
+            if (!durationSec) return;
+            const rect = e.currentTarget.getBoundingClientRect();
             const x = e.clientX - rect.left;
             const percent = x / rect.width;
             const time = percent * durationSec;
@@ -210,8 +212,8 @@ const MusicPlayer = () => {
               ref={barRef}
               onClick={handleSeekClick}
               onMouseMove={(e) => {
-                if (!barRef.current || !durationSec) return;
-                const rect = barRef.current.getBoundingClientRect();
+                if (!durationSec) return;
+                const rect = e.currentTarget.getBoundingClientRect();
                 const x = e.clientX - rect.left;
                 const percent = x / rect.width;
                 const time = percent * durationSec;
