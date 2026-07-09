@@ -1,13 +1,13 @@
-# Gresic-Music
+# BlueState Music
 
 A modern, TypeScript-powered music web application for my own typebeats.
 Yes, I am also a music producer and I love to create music as typebeats and remixes, so I created a website for myself that i fully own and can upload my musical projects.
 
-Live: [https://gresicmusic.vercel.app](https://gresicmusic.vercel.app)
+Live: [https://bluestate.vercel.app](https://bluestate.vercel.app)
 
 ## Overview
 
-Gresic-Music is a web-based music platform built to deliver a seamless audio experience. Developed using TypeScript, it aims to provide users with a clean interface and robust features for music discovery, playback.
+BlueState Music is a web-based music platform built to deliver a seamless audio experience. Developed using TypeScript, it aims to provide users with a clean interface and robust features for music discovery, playback.
 
 ## Features
 
@@ -15,33 +15,6 @@ Gresic-Music is a web-based music platform built to deliver a seamless audio exp
 - Play, pause, and control audio
 - User-friendly, responsive interface
 - Fast and reliable performance (deployed on Vercel)
-
-## Getting Started
-
-### Prerequisites
-
-- Node.js (recommended v18+)
-- npm or yarn
-
-### Installation
-
-```bash
-git clone https://github.com/NilanshuGarhewal/Gresic-Music.git
-cd Gresic-Music
-npm install
-# or
-yarn install
-```
-
-### Running Locally
-
-```bash
-npm run dev
-# or
-yarn dev
-```
-
-Visit `http://localhost:3000` in your browser to view the app.
 
 ## Project Structure
 
@@ -53,11 +26,9 @@ Visit `http://localhost:3000` in your browser to view the app.
 
 - TypeScript
 - React
-- Vercel (for deployment)
-
-## Contributing
-
-Contributions are welcome! Please open issues or pull requests to discuss suggestions or improvements.
+- Vercel (For Frontend Deployment)
+- Render (For Backend Deployment)
+- MongoDB Atlas (For Database)
 
 ## License
 
