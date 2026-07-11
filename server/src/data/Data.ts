@@ -1,258 +1,116 @@
-// const testingData = [
-//   {
-//     title: "kkklling eyes",
-//     coverImage:
-//       "https://res.cloudinary.com/dy0itwxqe/image/upload/v1753723396/gresic_error_image_azfqbe.jpg",
-//     audioUrl:
-//       "https://res.cloudinary.com/dy0itwxqe/video/upload/v1753692735/kkkilling_eyes_Typebeat_fbs90q.mp3",
-//     duration: "2:35",
-//     bpm: 94,
-//     scale: "F Minor",
-//     genre: ["Hip Hop", "Trap"],
-//     mood: ["Dark", "Negative", "Raw"],
-//     price: "FREE",
-//     purchaseLink: "",
-//     releaseDate: "3 Jul 2025",
-//   },
-//   {
-//     title: "Slide In",
-//     coverImage:
-//       "https://res.cloudinary.com/dy0itwxqe/image/upload/v1753723396/gresic_error_image_azfqbe.jpg",
-//     audioUrl:
-//       "https://res.cloudinary.com/dy0itwxqe/video/upload/v1753722959/Slide_In_Typebeat_fve7sq.mp3",
-//     duration: "2:48",
-//     bpm: 100,
-//     scale: "F# Major",
-//     genre: ["Pop", "Bollywood", "Ambient"],
-//     mood: ["Medlodic", "Soulful"],
-//     price: "FREE",
-//     purchaseLink: "",
-//     releaseDate: "23 Apr 2025",
-//   },
-//   {
-//     title: "Teer",
-//     coverImage:
-//       "https://res.cloudinary.com/dy0itwxqe/image/upload/v1753723396/gresic_error_image_azfqbe.jpg",
-//     audioUrl:
-//       "https://res.cloudinary.com/dy0itwxqe/video/upload/v1753692752/Teer_Typebeat_kv9hpa.mp3",
-//     duration: "3:17",
-//     bpm: 102,
-//     scale: "A Minor",
-//     genre: ["Pop", "Solo", "Bollywood", "Bollywood Pop"],
-//     mood: ["Happy", "Soulful", "Melodic"],
-//     price: "FREE",
-//     purchaseLink: "",
-//     releaseDate: "17 March 2025",
-//   },
-//   {
-//     title: "Inspired",
-//     coverImage:
-//       "https://res.cloudinary.com/dy0itwxqe/image/upload/v1753723396/gresic_error_image_azfqbe.jpg",
-//     audioUrl:
-//       "https://res.cloudinary.com/dy0itwxqe/video/upload/v1753692722/Bonita_Typebeat_m37hc2.mp3",
-//     duration: "2:08",
-//     bpm: 120,
-//     scale: "C# Major",
-//     genre: ["Pop", "Trippy"],
-//     mood: ["Energetic", "Fast"],
-//     price: "FREE",
-//     purchaseLink: "",
-//     releaseDate: "14 March 2025",
-//   },
-//   {
-//     title: "Pataal",
-//     coverImage:
-//       "https://res.cloudinary.com/dy0itwxqe/image/upload/v1753723396/gresic_error_image_azfqbe.jpg",
-//     audioUrl:
-//       "https://res.cloudinary.com/dy0itwxqe/video/upload/v1753692742/Pataal_Typebeat_gfops0.mp3",
-//     duration: "2:08",
-//     bpm: 120,
-//     scale: "C# Major",
-//     genre: ["Pop", "Trippy"],
-//     mood: ["Energetic", "Fast"],
-//     price: "FREE",
-//     purchaseLink: "",
-//     releaseDate: "7 March 2025",
-//   },
-//   {
-//     title: "Rehle Mere Kol",
-//     coverImage:
-//       "https://res.cloudinary.com/dy0itwxqe/image/upload/v1753723396/gresic_error_image_azfqbe.jpg",
-//     audioUrl:
-//       "https://res.cloudinary.com/dy0itwxqe/video/upload/v1753723049/Rehle_mere_kol_Typebeat_pd8knj.mp3",
-//     duration: "2:08",
-//     bpm: 120,
-//     scale: "C# Major",
-//     genre: ["Pop", "Trippy"],
-//     mood: ["Energetic", "Fast"],
-//     price: "FREE",
-//     purchaseLink: "",
-//     releaseDate: "2 March 2025",
-//   },
-//   {
-//     title: "Zariya",
-//     coverImage:
-//       "https://res.cloudinary.com/dy0itwxqe/image/upload/v1753723396/gresic_error_image_azfqbe.jpg",
-//     audioUrl:
-//       "https://res.cloudinary.com/dy0itwxqe/video/upload/v1753723019/zariya_Typebeat_owncnn.mp3",
-//     duration: "2:08",
-//     bpm: 120,
-//     scale: "C# Major",
-//     genre: ["Pop", "Trippy"],
-//     mood: ["Energetic", "Fast"],
-//     price: "FREE",
-//     purchaseLink: "",
-//     releaseDate: "16 Feb 2025",
-//   },
-//   {
-//     title: "F.L.A.W.",
-//     coverImage:
-//       "https://res.cloudinary.com/dy0itwxqe/image/upload/v1753723396/gresic_error_image_azfqbe.jpg",
-//     audioUrl:
-//       "https://res.cloudinary.com/dy0itwxqe/video/upload/v1753723016/FLAW_Falling_Like_A_Wishper_Typebeat_da2ev6.mp3",
-//     duration: "2:08",
-//     bpm: 120,
-//     scale: "C# Major",
-//     genre: ["Pop", "Trippy"],
-//     mood: ["Energetic", "Fast"],
-//     price: "FREE",
-//     purchaseLink: "",
-//     releaseDate: "4 Feb 2025",
-//   },
-//   {
-//     title: "Juicy",
-//     coverImage:
-//       "https://res.cloudinary.com/dy0itwxqe/image/upload/v1753723396/gresic_error_image_azfqbe.jpg",
-//     audioUrl:
-//       "https://res.cloudinary.com/dy0itwxqe/video/upload/v1753723006/Juicy_Typebeat_wa9o6i.mp3",
-//     duration: "2:08",
-//     bpm: 120,
-//     scale: "C# Major",
-//     genre: ["Pop", "Trippy"],
-//     mood: ["Energetic", "Fast"],
-//     price: "FREE",
-//     purchaseLink: "",
-//     releaseDate: "19 Jan 2025",
-//   },
-//   {
-//     title: "Aksar Ishq",
-//     coverImage:
-//       "https://res.cloudinary.com/dy0itwxqe/image/upload/v1753723396/gresic_error_image_azfqbe.jpg",
-//     audioUrl:
-//       "https://res.cloudinary.com/dy0itwxqe/video/upload/v1753723066/Aksar_Ishq_Typebeat_iahvn6.mp3",
-//     duration: "2:08",
-//     bpm: 120,
-//     scale: "C# Major",
-//     genre: ["Pop", "Trippy"],
-//     mood: ["Energetic", "Fast"],
-//     price: "FREE",
-//     purchaseLink: "",
-//     releaseDate: "12 Jan 2025",
-//   },
-//   {
-//     title: "Love Illisions",
-//     coverImage:
-//       "https://res.cloudinary.com/dy0itwxqe/image/upload/v1753723396/gresic_error_image_azfqbe.jpg",
-//     audioUrl:
-//       "https://res.cloudinary.com/dy0itwxqe/video/upload/v1753722932/Love_illusions_Typebeat_s14guv.mp3",
-//     duration: "2:08",
-//     bpm: 120,
-//     scale: "C# Major",
-//     genre: ["Pop", "Trippy"],
-//     mood: ["Energetic", "Fast"],
-//     price: "FREE",
-//     purchaseLink: "",
-//     releaseDate: "9 Jan 2025",
-//   },
-//   {
-//     title: "Causes",
-//     coverImage:
-//       "https://res.cloudinary.com/dy0itwxqe/image/upload/v1753723396/gresic_error_image_azfqbe.jpg",
-//     audioUrl:
-//       "https://res.cloudinary.com/dy0itwxqe/video/upload/v1753722932/Causes_Typebeat_fimjbq.mp3",
-//     duration: "2:08",
-//     bpm: 120,
-//     scale: "C# Major",
-//     genre: ["Pop", "Trippy"],
-//     mood: ["Energetic", "Fast"],
-//     price: "FREE",
-//     purchaseLink: "",
-//     releaseDate: "5 Jan 2025",
-//   },
-//   {
-//     title: "Zulfein",
-//     coverImage:
-//       "https://res.cloudinary.com/dy0itwxqe/image/upload/v1753723396/gresic_error_image_azfqbe.jpg",
-//     audioUrl:
-//       "https://res.cloudinary.com/dy0itwxqe/video/upload/v1753723059/Zulfein_Typebeat_ylnzuz.mp3",
-//     duration: "2:08",
-//     bpm: 120,
-//     scale: "C# Major",
-//     genre: ["Pop", "Trippy"],
-//     mood: ["Energetic", "Fast"],
-//     price: "FREE",
-//     purchaseLink: "",
-//     releaseDate: "1 Jan 2025",
-//   },
-//   {
-//     title: "Pagal Piya",
-//     coverImage:
-//       "https://res.cloudinary.com/dy0itwxqe/image/upload/v1753723396/gresic_error_image_azfqbe.jpg",
-//     audioUrl:
-//       "https://res.cloudinary.com/dy0itwxqe/video/upload/v1753722971/Pagal_Piya_Typebeat_s2uar8.mp3",
-//     duration: "2:08",
-//     bpm: 120,
-//     scale: "C# Major",
-//     genre: ["Pop", "Trippy"],
-//     mood: ["Energetic", "Fast"],
-//     price: "FREE",
-//     purchaseLink: "",
-//     releaseDate: "29 Dec 2024",
-//   },
-//   {
-//     title: "Lost In You",
-//     coverImage:
-//       "https://res.cloudinary.com/dy0itwxqe/image/upload/v1753723396/gresic_error_image_azfqbe.jpg",
-//     audioUrl:
-//       "https://res.cloudinary.com/dy0itwxqe/video/upload/v1753722985/Lost_In_You_Typebeat_qz7u04.mp3",
-//     duration: "2:08",
-//     bpm: 120,
-//     scale: "C# Major",
-//     genre: ["Pop", "Trippy"],
-//     mood: ["Energetic", "Fast"],
-//     price: "FREE",
-//     purchaseLink: "",
-//     releaseDate: "28 Dec 2024",
-//   },
-//   {
-//     title: "AURA",
-//     coverImage:
-//       "https://res.cloudinary.com/dy0itwxqe/image/upload/v1753723396/gresic_error_image_azfqbe.jpg",
-//     audioUrl:
-//       "https://res.cloudinary.com/dy0itwxqe/video/upload/v1753692748/AURA_Typebeat_ygstws.mp3",
-//     duration: "2:08",
-//     bpm: 120,
-//     scale: "C# Major",
-//     genre: ["Pop", "Trippy"],
-//     mood: ["Energetic", "Fast"],
-//     price: "FREE",
-//     purchaseLink: "",
-//     releaseDate: "7 July 2024",
-//   },
-//   {
-//     title: "Malang",
-//     coverImage:
-//       "https://res.cloudinary.com/dy0itwxqe/image/upload/v1753723396/gresic_error_image_azfqbe.jpg",
-//     audioUrl:
-//       "https://res.cloudinary.com/dy0itwxqe/video/upload/v1753722843/Malang_Typebeat_iptf6p.mp3",
-//     duration: "2:08",
-//     bpm: 120,
-//     scale: "C# Major",
-//     genre: ["Pop", "Trippy"],
-//     mood: ["Energetic", "Fast"],
-//     price: "FREE",
-//     purchaseLink: "",
-//     releaseDate: "8 Sept 2022",
-//   },
-// ];
-// exports.default = testingData;
+const testingData = [
+    {
+        title: "BOA",
+        coverImage:
+            "https://res.cloudinary.com/dy0itwxqe/image/upload/v1783699826/dark_signals_v1_fqogcw.jpg",
+        audioUrl:
+            "https://res.cloudinary.com/dy0itwxqe/video/upload/v1783699817/BlueState_BOA_From_DARK_SIGNALS_vol_1_Demo_fmpn3o.mp3",
+        duration: "2:40",
+        bpm: 105,
+        scale: "A Major",
+        genre: ["Reggaeton", "Hip Hop", "Pop"],
+        beatCollection: "Dark Signals vol. 1",
+        purchaseLink: "https://beat22.com/bt-257202",
+        releaseDate: new Date("2026-05-26"),
+    },
+    {
+        title: "COBRA",
+        coverImage:
+            "https://res.cloudinary.com/dy0itwxqe/image/upload/v1783699826/dark_signals_v1_fqogcw.jpg",
+        audioUrl:
+            "https://res.cloudinary.com/dy0itwxqe/video/upload/v1783699774/BlueState_Cobra_From_Dark_Signals_vol1_Demo_xhxalw.mp3",
+        duration: "2:31",
+        bpm: 108,
+        scale: "E Minor",
+        genre: ["Reggaeton", "Dark Pop"],
+        beatCollection: "Dark Signals vol. 1",
+        purchaseLink: "https://beat22.com/bt-256830",
+        releaseDate: new Date("2026-05-22"),
+    },
+    {
+        title: "Delusion",
+        coverImage:
+            "https://res.cloudinary.com/dy0itwxqe/image/upload/v1783699821/cover_art_pxmavo.png",
+        audioUrl:
+            "https://res.cloudinary.com/dy0itwxqe/video/upload/v1783699559/Nilanshu_Delusion_From_Still_Waiting_Demo_asrcr9.mp3",
+        duration: "2:38",
+        bpm: 132,
+        scale: "F Major",
+        genre: ["R&B", "Trap Soul"],
+        beatCollection: "Still Waiting",
+        purchaseLink: "https://beat22.com/bt-255826",
+        releaseDate: new Date("2026-05-14"),
+    },
+    {
+        title: "Wait Till The End",
+        coverImage:
+            "https://res.cloudinary.com/dy0itwxqe/image/upload/v1783699821/cover_art_pxmavo.png",
+        audioUrl:
+            "https://res.cloudinary.com/dy0itwxqe/video/upload/v1783699473/Nilanshu_wait_till_the_end_From_Still_Waiting_Demo_lvlmcr.mp3",
+        duration: "2:38",
+        bpm: 126,
+        scale: "C Minor",
+        genre: ["Electropop", "Dance Pop"],
+        beatCollection: "Still Waiting",
+        purchaseLink: "https://beat22.com/bt-255582",
+        releaseDate: new Date("2026-05-13"),
+    },
+    {
+        title: "Bubble Trouble",
+        coverImage:
+            "https://res.cloudinary.com/dy0itwxqe/image/upload/v1783699821/cover_art_pxmavo.png",
+        audioUrl:
+            "https://res.cloudinary.com/dy0itwxqe/video/upload/v1783699446/Nilanshu_Bubble_Trouble_From_Still_Waiting_Demo_vbb7d6.mp3",
+        duration: "3:13",
+        bpm: 106,
+        scale: "Ab Minor",
+        genre: ["Electropop", "Pop Rock", "Bubblegum Pop"],
+        beatCollection: "Still Waiting",
+        purchaseLink: "https://beat22.com/bt-255578",
+        releaseDate: new Date("2026-05-12"),
+    },
+    {
+        title: "Blue Without You",
+        coverImage:
+            "https://res.cloudinary.com/dy0itwxqe/image/upload/v1783699824/everythings_blue_magzdd.jpg",
+        audioUrl:
+            "https://res.cloudinary.com/dy0itwxqe/video/upload/v1783699413/Nilanshu_Blue_Without_You_From_Everythings_Blue_Demo_ys1jsx.mp3",
+        duration: "3:13",
+        bpm: 88,
+        scale: "F# Minor",
+        genre: ["Pop", "Hip Hop"],
+        beatCollection: "Everything's Blue",
+        purchaseLink: "https://beat22.com/bt-255098",
+        releaseDate: new Date("2026-04-22"),
+    },
+    {
+        title: "Blue Moon",
+        coverImage:
+            "https://res.cloudinary.com/dy0itwxqe/image/upload/v1783699824/everythings_blue_magzdd.jpg",
+        audioUrl:
+            "https://res.cloudinary.com/dy0itwxqe/video/upload/v1783699366/Nilanshu_Blue_Moon_Demo_ds7or0.mp3",
+        duration: "2:42",
+        bpm: 94,
+        scale: "C Major",
+        genre: ["R&B", "LoFi"],
+        beatCollection: "Everything's Blue",
+        purchaseLink: "https://beat22.com/bt-254966",
+        releaseDate: new Date("2026-04-22"),
+    },
+    {
+        title: "Blue In Love",
+        coverImage:
+            "https://res.cloudinary.com/dy0itwxqe/image/upload/v1783699824/everythings_blue_magzdd.jpg",
+        audioUrl:
+            "https://res.cloudinary.com/dy0itwxqe/video/upload/v1783699348/BlueState_Blue_In_Love_Demo_rckfpc.mp3",
+        duration: "3:34",
+        bpm: 112,
+        scale: "Ab Major",
+        genre: ["Pop", "Contemporary R&B"],
+        beatCollection: "Everything's Blue",
+        purchaseLink: "https://beat22.com/bt-254891",
+        releaseDate: new Date("2026-04-22"),
+    }
+];
+
+export default testingData;

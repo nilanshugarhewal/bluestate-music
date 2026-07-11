@@ -1,8 +1,6 @@
-// IMPORTING STUFF
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
-import mongoose from "mongoose";
 
 // --------------------------------------------->
 // --------------------------------------------->
@@ -27,19 +25,7 @@ app.use(express.json());
 // --------------------------------------------->
 // --------------------------------------------->
 
-// MONGO DB
-
-const URL = process.env.MONGO_URI;
-
-if (URL) {
-  mongoose
-    .connect(URL)
-    .then(() => console.log("MongoDB Connected"))
-    .catch((err) => console.error(err));
-} else {
-  throw new Error("NO URL FOUND!");
-}
-
+// PRISMA HANDLES DB CONNECTION AUTOMATICALLY
 // --------------------------------------------->
 // --------------------------------------------->
 // --------------------------------------------->

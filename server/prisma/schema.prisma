@@ -1,0 +1,25 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model Beat {
+  id             String   @id @default(uuid())
+  title          String
+  coverImage     String
+  audioUrl       String
+  duration       String
+  bpm            Int
+  scale          String
+  genre          String[]
+  beatCollection String
+  purchaseLink   String
+  releaseDate    DateTime
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}

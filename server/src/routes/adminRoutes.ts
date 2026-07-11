@@ -1,14 +1,15 @@
 import { Request, Response } from "express";
 import express from "express";
-import Beat from "../model/Beat";
-import { timeStamp } from "console";
+import prisma from "../lib/prisma";
 
 const router = express.Router();
 
 // ✅ Get all beats
 router.get("/", async (req: Request, res: Response) => {
   try {
-    const beats = await Beat.find().sort({ createdAt: -1 });
+    const beats = await prisma.beat.findMany({
+      orderBy: { createdAt: 'desc' }
+    });
     res.status(200).json(beats);
   } catch (err) {
     console.error("Error fetching beats:", err);
@@ -20,7 +21,7 @@ router.get("/", async (req: Request, res: Response) => {
 router.get("/:id", async (req: Request, res: Response) => {
   const { id } = req.params;
   try {
-    const beat = await Beat.findById(id);
+    const beat = await prisma.beat.findUnique({ where: { id } });
     if (!beat) {
       return res.status(404).json({ error: "Beat not found" });
     }
@@ -42,29 +43,31 @@ router.post("/", async (req: Request, res: Response) => {
       mood,
       scale,
       duration,
-      price,
-      description,
       coverImage,
+      beatCollection,
+      purchaseLink,
+      releaseDate,
     } = req.body;
 
     if (!title || !audioUrl) {
       return res.status(400).json({ error: "Title and audioUrl are required" });
     }
 
-    const newBeat = new Beat({
-      title,
-      bpm,
-      audioUrl,
-      genre,
-      mood,
-      scale,
-      duration,
-      price,
-      description,
-      coverImage,
+    const savedBeat = await prisma.beat.create({
+      data: {
+        title,
+        bpm: parseInt(bpm, 10),
+        audioUrl,
+        genre: genre || [],
+        scale,
+        duration,
+        coverImage,
+        beatCollection,
+        purchaseLink,
+        releaseDate: new Date(releaseDate),
+      }
     });
 
-    const savedBeat = await newBeat.save();
     res.status(201).json(savedBeat);
   } catch (err) {
     console.error("Error creating beat:", err);
@@ -75,10 +78,8 @@ router.post("/", async (req: Request, res: Response) => {
 // ✅ Update existing beat
 router.put("/:id", async (req: Request, res: Response) => {
   try {
-    // Destructure all possible fields from request body
     const {
       title,
-      description,
       coverImage,
       audioUrl,
       duration,
@@ -86,25 +87,20 @@ router.put("/:id", async (req: Request, res: Response) => {
       scale,
       genre,
       mood,
-      price,
       purchaseLink,
       releaseDate,
     } = req.body;
 
-    // Build an update object with only the fields that are provided
     const updateFields: any = {};
     if (title !== undefined) updateFields.title = title;
-    if (description !== undefined) updateFields.description = description;
     if (coverImage !== undefined) updateFields.coverImage = coverImage;
     if (audioUrl !== undefined) updateFields.audioUrl = audioUrl;
     if (duration !== undefined) updateFields.duration = duration;
-    if (bpm !== undefined) updateFields.bpm = bpm;
+    if (bpm !== undefined) updateFields.bpm = parseInt(bpm, 10);
     if (scale !== undefined) updateFields.scale = scale;
     if (genre !== undefined) updateFields.genre = genre;
-    if (mood !== undefined) updateFields.mood = mood;
-    if (price !== undefined) updateFields.price = price;
     if (purchaseLink !== undefined) updateFields.purchaseLink = purchaseLink;
-    if (releaseDate !== undefined) updateFields.releaseDate = releaseDate;
+    if (releaseDate !== undefined) updateFields.releaseDate = new Date(releaseDate);
 
     if (Object.keys(updateFields).length === 0) {
       return res
@@ -112,15 +108,10 @@ router.put("/:id", async (req: Request, res: Response) => {
         .json({ error: "At least one field is required to update" });
     }
 
-    const updatedBeat = await Beat.findByIdAndUpdate(
-      req.params.id,
-      updateFields,
-      { new: true, runValidators: true }
-    );
-
-    if (!updatedBeat) {
-      return res.status(404).json({ error: "Beat not found" });
-    }
+    const updatedBeat = await prisma.beat.update({
+      where: { id: req.params.id },
+      data: updateFields,
+    });
 
     res.status(200).json({
       message: "Beat updated successfully!",
@@ -128,6 +119,10 @@ router.put("/:id", async (req: Request, res: Response) => {
     });
   } catch (err) {
     console.error("Error updating beat:", err);
+    // Prisma throws specific error when record to update not found (P2025)
+    if (err && typeof err === 'object' && 'code' in err && err.code === 'P2025') {
+       return res.status(404).json({ error: "Beat not found" });
+    }
     res.status(500).json({ error: "Failed to update beat" });
   }
 });
@@ -136,15 +131,16 @@ router.put("/:id", async (req: Request, res: Response) => {
 // ✅ Delete beat
 router.delete("/:id", async (req: Request, res: Response) => {
   try {
-    const deletedBeat = await Beat.findByIdAndDelete(req.params.id);
-
-    if (!deletedBeat) {
-      return res.status(404).json({ error: "Beat not found" });
-    }
+    const deletedBeat = await prisma.beat.delete({
+      where: { id: req.params.id }
+    });
 
     res.status(200).json({ message: "Beat deleted successfully!" });
   } catch (err) {
     console.error("Error deleting beat:", err);
+    if (err && typeof err === 'object' && 'code' in err && err.code === 'P2025') {
+       return res.status(404).json({ error: "Beat not found" });
+    }
     res.status(500).json({ error: "Failed to delete beat" });
   }
 });

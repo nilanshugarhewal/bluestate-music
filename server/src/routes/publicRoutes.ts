@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import express from "express";
-import Beat from "../model/Beat";
+import prisma from "../lib/prisma";
 
 import safeRoute from "../middlewares/safeRoute";
 
@@ -14,7 +14,9 @@ const router = express.Router();
 router.get(
   "/",
   safeRoute(async (req: Request, res: Response) => {
-    const beats = await Beat.find().sort({ createdAt: -1 });
+    const beats = await prisma.beat.findMany({
+      orderBy: { createdAt: 'desc' },
+    });
     res.status(200).json(beats);
   })
 );
@@ -23,9 +25,10 @@ router.get(
 // --------------------------------------------->
 // --------------------------------------------->
 
-// GET 12 RANDOM BEATS
+// GET 24 RANDOM BEATS
 router.get("/random", async (req: Request, res: Response) => {
-  const beats = await Beat.aggregate([{ $sample: { size: 24 } }]);
+  // Using raw query for efficient random selection in PostgreSQL
+  const beats = await prisma.$queryRaw`SELECT * FROM "Beat" ORDER BY RANDOM() LIMIT 24`;
   res.status(200).json(beats);
 });
 
@@ -39,7 +42,9 @@ router.get(
   "/track/:id",
   safeRoute(async (req: Request, res: Response) => {
     const { id } = req.params;
-    const beat = await Beat.findById(id);
+    const beat = await prisma.beat.findUnique({
+      where: { id },
+    });
     res.status(200).json(beat);
   })
 );
