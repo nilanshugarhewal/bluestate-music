@@ -146,7 +146,6 @@
             display: flex;
             align-items: center;
             gap: getSpacing(sm);
-            border: 1px solid $dark2;
             font-size: 14px;
             cursor: pointer;
             transition: all 0.2s ease;
@@ -162,6 +161,8 @@
             color: $white;
             padding: 8px 12px;
             font-family: "Mona Sans", sans-serif;
+            text-decoration: none;
+            border: 1px solid $dark2;
 
             &:hover {
               background: $dark2;

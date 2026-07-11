@@ -19,20 +19,7 @@ import {
 import "./ShowTrack.scss";
 
 // ---------- Types ----------
-type Beat = {
-  _id: string;
-  title?: string;
-  bpm?: number;
-  audioUrl: string;
-  genre?: string[];
-  mood?: string[];
-  scale?: string;
-  duration?: string;
-  price?: string;
-  description?: string;
-  coverImage?: string;
-  releaseDate?: string;
-};
+import { Beat } from "../../../types";
 
 // ---------- Component ----------
 const TrackInfo = () => {
@@ -46,9 +33,8 @@ const TrackInfo = () => {
     useSelector((s: RootState) => s.player);
 
   const apiLink = process.env.REACT_APP_API_URL;
-  const apiRandom = process.env.REACT_APP_API_RANDOM;
 
-  const isCurrent = currentTrack?._id === beat?._id;
+  const isCurrent = currentTrack?.id === beat?.id;
   const playing = isCurrent && isPlaying;
 
   // ---------- Actions ----------
@@ -75,24 +61,29 @@ const TrackInfo = () => {
       })
       .catch(console.error);
 
-    // Fetch related tracks
-    if (apiRandom) {
-      fetch(apiRandom)
+    // Fetch related tracks from the main API, then shuffle client-side
+    if (apiLink) {
+      fetch(apiLink)
         .then(res => res.json())
         .then((data: Beat[]) => {
-          // Filter out the current track if it's in the random list
-          const filtered = data.filter(t => t._id !== id).slice(0, 5);
+          // Fisher-Yates shuffle
+          const shuffled = [...data];
+          for (let i = shuffled.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+          }
+          const filtered = shuffled.filter(t => t.id !== id).slice(0, 5);
           setRelatedTracks(filtered);
         })
         .catch(console.error);
     }
-  }, [id, apiLink, apiRandom]);
+  }, [id, apiLink]);
 
   // ---------- Render ----------
   if (loading || !beat) return <Loading />;
 
-  // Display price logic
-  const displayPrice = beat.price ? `$${beat.price}` : "$49.99";
+  // Format release date logic
+  const formattedDate = beat.releaseDate ? new Date(beat.releaseDate).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" }) : "";
 
   return (
     <div className="track-info-page">
@@ -101,7 +92,7 @@ const TrackInfo = () => {
         {/* --- Hero Section --- */}
         <div className="ti-hero">
           <div className="ti-cover">
-            <img src={beat.coverImage} alt={beat.title} />
+            <img src={beat.coverImage} alt={beat.title} loading="lazy" />
           </div>
 
           <div className="ti-details-container">
@@ -134,14 +125,12 @@ const TrackInfo = () => {
 
                 {beat.releaseDate && (
                   <span className="ti-badge">
-                    {beat.releaseDate}
+                    {formattedDate}
                   </span>
                 )}
               </div>
 
-              {beat.description && (
-                <p className="ti-description">{beat.description}</p>
-              )}
+
 
               {beat.genre && beat.genre.length > 0 && (
                 <div className="ti-tags">
@@ -153,9 +142,9 @@ const TrackInfo = () => {
             </div>
 
             <div className="ti-actions-row">
-              <button className="ti-btn">
-                {displayPrice}
-              </button>
+              <a href={beat.purchaseLink} target="_blank" rel="noreferrer" className="ti-btn">
+                BUY
+              </a>
 
               <button className="ti-btn">
                 <ShareNetworkIcon weight="bold" /> SHARE
@@ -173,7 +162,7 @@ const TrackInfo = () => {
           <div className="ti-related-list">
             {relatedTracks.length > 0 ? (
               relatedTracks.map(t => (
-                <BeatRow key={t._id} beat={t} handlePlay={() => {
+                <BeatRow key={t.id} beat={t} handlePlay={() => {
                   dispatch(playTrack(t));
                 }} />
               ))

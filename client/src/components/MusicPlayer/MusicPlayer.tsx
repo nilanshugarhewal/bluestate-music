@@ -205,14 +205,14 @@ const MusicPlayer = () => {
 
         {/* LEFT: Cover and Info */}
         <div className="mp-center">
-          <Link to={`/track/${currentTrack._id}`} className="mp-cover-link">
+          <Link to={`/track/${currentTrack.id}`} className="mp-cover-link">
             <img
               src={currentTrack.coverImage}
               alt={currentTrack.title}
               className="mp-cover-img"
             />
           </Link>
-          <Link to={`/track/${currentTrack._id}`} className="mp-info-link">
+          <Link to={`/track/${currentTrack.id}`} className="mp-info-link">
             <div className="mp-title">{currentTrack.title}</div>
             <div className="mp-artist">BlueState</div>
           </Link>

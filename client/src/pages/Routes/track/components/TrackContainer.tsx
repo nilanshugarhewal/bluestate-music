@@ -1,18 +1,6 @@
 
 
-type Beat = {
-  _id: string;
-  title?: string;
-  bpm?: number;
-  audioUrl: string;
-  genre?: string[];
-  mood?: string[];
-  scale: string;
-  duration?: string;
-  price?: string;
-  description?: string;
-  coverImage?: string;
-};
+import { Beat } from "../../../../types";
 
 type BeatProps = {
   allBeats: Beat[];

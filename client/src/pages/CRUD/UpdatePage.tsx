@@ -1,19 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
-type Beat = {
-  _id: string;
-  title?: string;
-  bpm?: number;
-  audioUrl: string;
-  genre?: string[];
-  mood?: string[];
-  scale?: string;
-  duration?: string;
-  price?: string;
-  description?: string;
-  coverImage?: string;
-};
+import { Beat } from "../../types";
 
 const EditBeat = () => {
   const { id } = useParams();
@@ -51,10 +39,10 @@ const EditBeat = () => {
     setBeat({ ...beat, [name]: value });
   };
 
-  // Handle array fields (genre, mood)
+  // Handle array fields (genre)
   const handleArrayChange = (
     e: React.ChangeEvent<HTMLInputElement>,
-    field: "genre" | "mood"
+    field: "genre"
   ) => {
     if (!beat) return;
     setBeat({
@@ -122,12 +110,6 @@ const EditBeat = () => {
           onChange={(e) => handleArrayChange(e, "genre")}
         />
 
-        {/* Mood */}
-        <InputField
-          label="Mood (comma separated)"
-          value={beat.mood?.join(", ") || ""}
-          onChange={(e) => handleArrayChange(e, "mood")}
-        />
 
         {/* Scale */}
         <InputField
@@ -145,13 +127,6 @@ const EditBeat = () => {
           onChange={handleChange}
         />
 
-        {/* Price */}
-        <InputField
-          label="Price ($)"
-          name="price"
-          value={beat.price || ""}
-          onChange={handleChange}
-        />
 
         {/* Cover Image */}
         <InputField
@@ -169,15 +144,32 @@ const EditBeat = () => {
           onChange={handleChange}
         />
 
-        {/* Description */}
+        {/* Collection Name */}
+        <InputField
+          label="Collection Name"
+          name="beatCollection"
+          value={beat.beatCollection || ""}
+          onChange={handleChange}
+        />
+
+        {/* Purchase Link */}
+        <InputField
+          label="Purchase Link"
+          name="purchaseLink"
+          value={beat.purchaseLink || ""}
+          onChange={handleChange}
+        />
+
+        {/* Release Date */}
         <div>
-          <label className="block font-medium mb-1">Description</label>
-          <textarea
-            name="description"
-            value={beat.description || ""}
-            onChange={handleChange}
+          <label className="block font-medium mb-1">Release Date</label>
+          <input
+            type="date"
+            value={beat.releaseDate ? new Date(beat.releaseDate).toISOString().split("T")[0] : ""}
+            onChange={(e) =>
+              setBeat({ ...beat, releaseDate: new Date(e.target.value).toISOString() })
+            }
             className="w-full p-2 border rounded-lg"
-            rows={4}
           />
         </div>
 

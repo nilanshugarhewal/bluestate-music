@@ -1,19 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-type Beat = {
-  _id: string;
-  title: string;
-  bpm?: number;
-  audioUrl: string;
-  genre?: string[];
-  mood?: string[];
-  scale?: string;
-  duration?: string;
-  price?: string;
-  description?: string;
-  coverImage?: string;
-};
+import { Beat } from "../../types";
 
 const AdminPanel = () => {
   // Base URL for admin routes
@@ -33,7 +21,7 @@ const AdminPanel = () => {
   // Delete Beat
   const handleDelete = (id: string) => {
     fetch(`${apiLink}/${id}`, { method: "DELETE" }).then(() =>
-      setBeats(beats.filter((b) => b._id !== id))
+      setBeats(beats.filter((b) => b.id !== id))
     );
   };
 
@@ -72,13 +60,13 @@ const AdminPanel = () => {
         </thead>
         <tbody>
           {filteredBeats.map((beat) => (
-            <tr key={beat._id}>
+            <tr key={beat.id}>
               <td>{beat.title}</td>
               <td>{beat.bpm}</td>
               <td>{beat.genre?.join(", ")}</td>
               <td>
-                <button onClick={() => handleDelete(beat._id)}>Delete</button>
-                <a href={`/edit/${beat._id}`}>
+                <button onClick={() => handleDelete(beat.id)}>Delete</button>
+                <a href={`/edit/${beat.id}`}>
                   <button>Edit</button>
                 </a>
               </td>

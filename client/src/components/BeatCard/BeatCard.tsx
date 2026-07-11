@@ -1,14 +1,16 @@
 import "./BeatCard.scss";
 
-export const BeatCard = ({ beat, handlePlay }: any) => {
+import { Beat } from "../../types";
+
+export const BeatCard = ({ beat, handlePlay }: { beat: Beat, handlePlay: any }) => {
     return (
         <div
             className="beat-card"
-            key={beat._id}
+            key={beat.id}
             onClick={() => handlePlay(beat)}
         >
             <div className="beat-card-image">
-                <img src={beat.coverImage} alt="cover" />
+                <img src={beat.coverImage} alt="cover" loading="lazy" />
             </div>
 
             <div className="beat-card-info">

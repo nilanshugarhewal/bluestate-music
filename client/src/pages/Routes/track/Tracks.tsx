@@ -1,28 +1,16 @@
 import { useEffect, useState, useMemo } from "react";
+import { Beat } from "../../../types";
 import "./Track.scss";
-import { MagnifyingGlassIcon, FunnelIcon } from "@phosphor-icons/react";
+import { MagnifyingGlassIcon } from "@phosphor-icons/react";
 
 import TrackGenre from "../../../components/TrackWrapper/TrackGenre";
 
 import Loading from "../../../components/Loading/Loading";
-import Footer from "../../../layouts/Footer/Footer";
 
 const Tracks = () => {
   const apiLink = process.env.REACT_APP_API_URL;
 
-  type Beat = {
-    _id: string;
-    title?: string;
-    bpm?: number;
-    audioUrl: string;
-    genre?: string[];
-    mood?: string[];
-    scale: string;
-    duration?: string;
-    price?: string;
-    description?: string;
-    coverImage?: string;
-  };
+
 
   const [allBeats, setAllBeats] = useState<Beat[]>([]);
 
@@ -30,6 +18,15 @@ const Tracks = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [bpmRange, setBpmRange] = useState<string>("all");
   const [scaleFilter, setScaleFilter] = useState<string>("all");
+  const [collectionFilter, setCollectionFilter] = useState<string>("all");
+
+  const collections = [
+    { label: "All Beats", value: "all" },
+    { label: "Singles", value: "Single" },
+    { label: "Dark Signals vol. 1", value: "Dark Signals vol. 1" },
+    { label: "Still Waiting", value: "Still Waiting" },
+    { label: "Everything's Blue", value: "Everything's Blue" },
+  ];
 
   useEffect(() => {
     if (!apiLink) {
@@ -39,7 +36,7 @@ const Tracks = () => {
 
     fetch(apiLink)
       .then((res) => res.json())
-      .then((data) => {
+      .then((data: Beat[]) => {
         setAllBeats(data);
       })
       .catch((err) => console.log(err));
@@ -72,9 +69,13 @@ const Tracks = () => {
         else if (bpmRange === ">120") matchesBpm = beat.bpm > 120;
       }
 
-      return matchesSearch && matchesScale && matchesBpm;
+      // 4. Collection Filter
+      const matchesCollection =
+        collectionFilter === "all" || beat.beatCollection === collectionFilter;
+
+      return matchesSearch && matchesScale && matchesBpm && matchesCollection;
     });
-  }, [allBeats, searchTerm, scaleFilter, bpmRange]);
+  }, [allBeats, searchTerm, scaleFilter, bpmRange, collectionFilter]);
 
   return (
     <div className="tracks">
@@ -130,10 +131,15 @@ const Tracks = () => {
         </div>
 
         <div className="track-filter-collection">
-          <div className="track-filter-sort">All Beats</div>
-          <div className="track-filter-sort">Dark Signals vol. 1</div>
-          <div className="track-filter-sort">Still Waiting</div>
-          <div className="track-filter-sort">EVERYTHING'S BLUE</div>
+          {collections.map((col) => (
+            <div
+              key={col.value}
+              className={`track-filter-sort${collectionFilter === col.value ? " active" : ""}`}
+              onClick={() => setCollectionFilter(col.value)}
+            >
+              {col.label}
+            </div>
+          ))}
         </div>
       </div>
 
@@ -148,6 +154,7 @@ const Tracks = () => {
                 setSearchTerm("");
                 setBpmRange("all");
                 setScaleFilter("all");
+                setCollectionFilter("all");
               }}>Clear Filters</button>
             </div>
           )}

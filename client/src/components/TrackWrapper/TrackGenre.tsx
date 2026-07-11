@@ -6,19 +6,7 @@ import { BeatRow } from "../BeatRow/BeatRow";
 
 import "./TrackGenre.scss";
 
-type Beat = {
-  _id: string;
-  title?: string;
-  bpm?: number;
-  audioUrl: string;
-  genre?: string[];
-  mood?: string[];
-  scale?: string;
-  duration?: string;
-  price?: string;
-  description?: string;
-  coverImage?: string;
-};
+import { Beat } from "../../types";
 
 type BeatProps = {
   allBeats: Beat[];
@@ -34,11 +22,11 @@ const TrackGenre = ({ allBeats, variant = "card" }: BeatProps) => {
     <section className="tc-pop">
       <div className={`tc-pop-container ${variant === "row" ? "tc-pop-list" : "tc-pop-grid"}`}>
         {allBeats.map((beat) => (
-          variant === "row" ? (
-            <BeatRow key={beat._id} beat={beat} handlePlay={handlePlay} />
-          ) : (
-            <BeatCard key={beat._id} beat={beat} handlePlay={handlePlay} />
-          )
+            variant === "row" ? (
+              <BeatRow key={beat.id} beat={beat} handlePlay={handlePlay} />
+            ) : (
+              <BeatCard key={beat.id} beat={beat} handlePlay={handlePlay} />
+            )
         ))}
       </div>
     </section>

@@ -1,8 +1,9 @@
 import React from "react";
 import { Play } from "@phosphor-icons/react";
 import "./BeatRow.scss";
+import { Beat } from "../../types";
 
-export const BeatRow = ({ beat, handlePlay }: any) => {
+export const BeatRow = ({ beat, handlePlay }: { beat: Beat, handlePlay: any }) => {
     return (
         <div
             className="beat-row"
@@ -10,7 +11,7 @@ export const BeatRow = ({ beat, handlePlay }: any) => {
         >
             <div className="beat-row-left">
                 <div className="beat-row-image-container">
-                    <img src={beat.coverImage} alt="cover" className="beat-row-image" />
+                    <img src={beat.coverImage} alt="cover" className="beat-row-image" loading="lazy" />
                     <div className="beat-row-play-overlay">
                         <Play size={20} weight="fill" className="beat-row-play-icon" />
                     </div>
@@ -18,7 +19,7 @@ export const BeatRow = ({ beat, handlePlay }: any) => {
 
                 <div className="beat-row-details">
                     <span className="beat-row-title">{beat.title}</span>
-                    <span className="beat-row-artist">{beat.collection?.name || "BlueState"}</span>
+                    <span className="beat-row-artist">{beat.beatCollection || "BlueState"}</span>
                 </div>
             </div>
 
@@ -38,7 +39,7 @@ export const BeatRow = ({ beat, handlePlay }: any) => {
             </div>
 
             <div className="beat-row-right">
-                {beat.price && <span className="beat-row-price">{beat.price}</span>}
+                <a href={beat.purchaseLink} className="beat-row-buy">Buy</a>
             </div>
         </div>
     );

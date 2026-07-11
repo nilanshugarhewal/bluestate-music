@@ -1,18 +1,6 @@
 import React, { useState } from "react";
 
-type Beat = {
-  _id: string;
-  title: string;
-  bpm?: number;
-  audioUrl: string;
-  genre?: string[];
-  mood?: string[];
-  scale?: string;
-  duration?: string;
-  price?: string;
-  description?: string;
-  coverImage?: string;
-};
+import { Beat } from "../../types";
 
 const CreatePage = () => {
   const apiLink = process.env.REACT_APP_API_ADMIN;
@@ -103,19 +91,6 @@ const CreatePage = () => {
             />
           </div>
 
-          <div>
-            <label>Mood (comma separated)</label>
-            <input
-              placeholder="Dark, Energetic"
-              value={newBeat.mood?.join(", ") || ""}
-              onChange={(e) =>
-                setNewBeat({
-                  ...newBeat,
-                  mood: e.target.value.split(",").map((m) => m.trim()),
-                })
-              }
-            />
-          </div>
 
           <div>
             <label>Scale</label>
@@ -140,23 +115,34 @@ const CreatePage = () => {
           </div>
 
           <div>
-            <label>Price</label>
+            <label>Collection Name</label>
             <input
-              placeholder="$50"
-              value={newBeat.price || ""}
+              placeholder="Summer Vibes"
+              value={newBeat.beatCollection || ""}
               onChange={(e) =>
-                setNewBeat({ ...newBeat, price: e.target.value })
+                setNewBeat({ ...newBeat, beatCollection: e.target.value })
               }
             />
           </div>
 
           <div>
-            <label>Description</label>
-            <textarea
-              placeholder="Describe your beat..."
-              value={newBeat.description || ""}
+            <label>Purchase Link</label>
+            <input
+              placeholder="https://beat22.com/..."
+              value={newBeat.purchaseLink || ""}
               onChange={(e) =>
-                setNewBeat({ ...newBeat, description: e.target.value })
+                setNewBeat({ ...newBeat, purchaseLink: e.target.value })
+              }
+            />
+          </div>
+
+          <div>
+            <label>Release Date</label>
+            <input
+              type="date"
+              value={newBeat.releaseDate ? new Date(newBeat.releaseDate).toISOString().split("T")[0] : ""}
+              onChange={(e) =>
+                setNewBeat({ ...newBeat, releaseDate: new Date(e.target.value).toISOString() })
               }
             />
           </div>

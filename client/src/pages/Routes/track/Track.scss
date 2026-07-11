@@ -4,6 +4,7 @@
 
 .tracks {
   width: 100vw;
+  min-height: 100vh;
   height: auto;
   display: flex;
   flex-direction: column;
@@ -36,6 +37,12 @@
         &:hover {
           background-color: var.$dark;
           color: var.$white;
+        }
+
+        &.active {
+          background-color: var.$white;
+          color: var.$dark2;
+          border-color: var.$white;
         }
       }
     }

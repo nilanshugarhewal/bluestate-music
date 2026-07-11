@@ -110,11 +110,13 @@
         flex: 1;
         // background-color: purple;
 
-        .beat-row-price {
+        .beat-row-buy {
             font-size: 14px;
             border: 1px solid $dark2;
             padding: getSpacing(sm) getSpacing(md);
-            
+            color: $white;
+            text-decoration: none;
+
             &:hover {
                 background-color: $dark2;
             }
