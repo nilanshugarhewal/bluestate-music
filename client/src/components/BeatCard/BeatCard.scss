@@ -1,6 +1,6 @@
-@use "../../sass/abstracts/variables" as *;
-@use "../../sass/abstracts/mixins" as *;
-@use "../../sass/abstracts/functions" as *;
+@use "../../sass/abstracts/variables" as var;
+@use "../../sass/abstracts/mixins" as mix;
+@use "../../sass/abstracts/functions" as fn;
 
 .beat-card {
     width: 100%;
@@ -8,19 +8,32 @@
     display: flex;
     flex-direction: column;
     cursor: pointer;
-    gap: getSpacing(md);
+    gap: fn.getSpacing(md);
     transition: all .3s ease;
     border: 1px solid transparent;
 
     &:hover {
-        border: 1px solid $dark2;
-        background-color: $dark;
-        padding: getSpacing(md);
+        border: 1px solid var.$dark2;
+        background-color: var.$dark;
+        padding: fn.getSpacing(md);
+    }
+
+    @include mix.respond(sm) {
+        border: 1px solid var.$dark2;
+        padding: fn.getSpacing(sm);
+        background-color: var.$dark;
+
+        &:hover {
+            border: 1px solid var.$dark2;
+            padding: fn.getSpacing(sm);
+            background-color: var.$dark;
+        }
     }
 
     .beat-card-image {
         width: 100%;
         height: auto;
+        overflow: hidden;
 
         img {
             width: 100%;
@@ -35,27 +48,45 @@
         overflow: hidden;
         display: flex;
         flex-direction: column;
-        gap: getSpacing(sm);
+        gap: fn.getSpacing(sm);
+
+        @include mix.respond(sm) {
+            display: flex;
+            flex-direction: column-reverse;
+        }
 
         .beat-card-top {
             display: flex;
             flex-direction: column;
-            gap: getSpacing(xs);
+            gap: fn.getSpacing(xs);
+
+            @include mix.respond(sm) {
+                display: flex;
+                flex-direction: column-reverse;
+            }
 
             .beat-card-artist {
                 font-size: 12px;
-                color: $fg-secondary;
+                color: var.$fg-secondary;
             }
 
             .beat-card-title {
                 font-size: 24px;
+
+                @include mix.respond(sm) {
+                    font-size: 16px;
+                }
             }
         }
 
         .beat-info-divider {
             width: 100%;
             height: 2px;
-            background-color: $dark2;
+            background-color: var.$dark2;
+
+            @include mix.respond(sm) {
+                display: none;
+            }
         }
 
         .beat-card-bottom {
@@ -66,17 +97,32 @@
             gap: 4px;
 
             .beat-card-bpm {
-                color: $grey;
+                color: var.$grey;
+            }
+
+            .beat-card-price {
+                display: none;
+
+                @include mix.respond(sm) {
+                    display: block;
+                    border: 1px solid var.$primary;
+                    padding: 4px 8px;
+                    border-radius: 4px;
+                }
             }
 
             .beat-card-genres {
                 display: flex;
                 gap: 4px;
 
+                @include mix.respond(sm) {
+                    display: none;
+                }
+
                 .beat-card-genre {
-                    padding: getSpacing(xs);
-                    background-color: $primary;
-                    color: $black;
+                    padding: fn.getSpacing(xs);
+                    background-color: var.$primary;
+                    color: var.$black;
                 }
             }
         }

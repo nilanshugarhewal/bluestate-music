@@ -10,34 +10,19 @@
 
 // COMPONENTS
 @import "./components/loading/loading.scss";
-@import "./components/trail/trail.scss";
 
 // LAYOUT
-
-// NAVBAR
-
-// @import "./layout/Nav/Nav.scss";
-// @import "./layout/Nav/NavLinks.scss";
-// @import "./layout/Nav/NavSearch.scss";
-// @import "./layout/Nav/NavPlayer.scss";
-// @import "./layout/Nav/ResponsiveNavbar.scss";
 
 // PAGES
 
 // HOME
 @import "./pages/Routes/home/HeroSection.scss";
-@import "./pages/Routes/home/PianoSection.scss";
 @import "./pages/Routes/home/HeroResponsive.scss";
 
 // Track
 @import "./pages/Routes/track/TrackContainer.scss";
 @import "./pages/Routes/track/TrackCard.scss";
 @import "./pages/Routes/track/TrackResponsive.scss";
-
-// SHOW TRACK
-@import "./pages/Routes/show_track/ShowResponsive.scss";
-@import "./pages/Routes/show_track/ShowTrackMore.scss";
-@import "./pages/Routes/show_track/RelatedTracks.scss";
 
 // ADMIN
 @import "./pages/admin/AdminPanel.scss";

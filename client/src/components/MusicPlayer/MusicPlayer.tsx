@@ -102,14 +102,16 @@ const MusicPlayer = () => {
 
   // Seek by clicking on the navbar bar
   const handleSeekClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!audioRef.current || !barRef.current || !durationSec) return;
+    if (!audioRef.current || !durationSec) return;
 
-    const rect = barRef.current.getBoundingClientRect();
+    const rect = e.currentTarget.getBoundingClientRect();
     const clickX = e.clientX - rect.left;
     const percent = clickX / rect.width;
     const seekTime = percent * durationSec;
 
-    audioRef.current.currentTime = seekTime;
+    if (Number.isFinite(seekTime)) {
+      audioRef.current.currentTime = seekTime;
+    }
   };
 
   // Keyboard arrows to seek
@@ -144,11 +146,43 @@ const MusicPlayer = () => {
 
   return (
     <div className="music-player-container">
+
+      <div className="mp-progress-container-2">
+        <span className="mp-time">{formatTime(currentTimeSec)}</span>
+        <div
+          className="mp-progress-bar-wrapper"
+          ref={barRef}
+          onClick={handleSeekClick}
+          onMouseMove={(e) => {
+            if (!durationSec) return;
+            const rect = e.currentTarget.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const percent = x / rect.width;
+            const time = percent * durationSec;
+            setHoverX(x);
+            setHoverTime(time);
+          }}
+          onMouseLeave={() => setHoverTime(null)}
+        >
+          {hoverTime !== null && (
+            <div className="mp-tooltip" style={{ left: hoverX }}>
+              {formatTime(hoverTime)}
+            </div>
+          )}
+          <div className="mp-progress-bg">
+            <div className="mp-progress-fill" style={{ width: `${progressPct}%` }}>
+              <div className="mp-progress-handle"></div>
+            </div>
+          </div>
+        </div>
+        <span className="mp-time">{formatTime(durationSec)}</span>
+      </div>
+
       <div className="music-player bg-blur">
         {/* Only audio in the whole app */}
         <audio ref={audioRef} src={currentTrack.audioUrl} preload="metadata" />
 
-        
+
 
         {/* CENTER: Controls and Progress */}
         <div className="mp-left">
@@ -160,7 +194,7 @@ const MusicPlayer = () => {
                 <PlayIcon weight="fill" />
               )}
             </button>
-            
+
             <button className="mp-control-btn">
               <SkipBackIcon weight="fill" />
             </button>
@@ -178,8 +212,8 @@ const MusicPlayer = () => {
               ref={barRef}
               onClick={handleSeekClick}
               onMouseMove={(e) => {
-                if (!barRef.current || !durationSec) return;
-                const rect = barRef.current.getBoundingClientRect();
+                if (!durationSec) return;
+                const rect = e.currentTarget.getBoundingClientRect();
                 const x = e.clientX - rect.left;
                 const percent = x / rect.width;
                 const time = percent * durationSec;

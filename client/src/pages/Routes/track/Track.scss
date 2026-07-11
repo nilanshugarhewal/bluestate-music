@@ -1,5 +1,5 @@
 @use "../../../sass/abstracts/functions" as fn;
-@use "../../../sass/abstracts/mixins" as mx;
+@use "../../../sass/abstracts/mixins" as mix;
 @use "../../../sass/abstracts/variables" as var;
 
 .tracks {
@@ -12,6 +12,11 @@
   position: relative;
   margin-top: 8rem;
 
+  @include mix.respond(sm) {
+    margin-top: 4rem;
+    gap: 0;
+  }
+
   .track-top {
     width: 100%;
     height: auto;
@@ -20,11 +25,19 @@
     flex-direction: column;
     gap: fn.getSpacing(md);
 
+    @include mix.respond(sm) {
+      padding: 0 1rem;
+    }
+
     .track-filter-collection {
       width: 100%;
       height: auto;
       display: flex;
       column-gap: fn.getSpacing(md);
+
+      @include mix.respond(sm) {
+        display: none;
+      }
 
       .track-filter-sort {
         padding: fn.getSpacing(sm) fn.getSpacing(md);
@@ -52,9 +65,26 @@
       justify-content: space-between;
       align-items: center;
 
+      @include mix.respond(sm) {
+        width: 100%;
+        height: auto;
+        gap: fn.getSpacing(sm);
+      }
+
+      @include mix.respond(sm) {
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+      }
+
       .tfb-search-col {
         flex: 1;
         max-width: 400px;
+
+        @include mix.respond(sm) {
+          min-width: 100%;
+          max-width: none;
+        }
 
         .tfb-search-box {
           width: 100%;
@@ -67,7 +97,7 @@
           transition: border-color 0.2s ease;
 
           &:focus-within {
-            border-color: rgba(255, 255, 255, 0.3);
+            border-color: var.$grey;
           }
 
           input {
@@ -89,6 +119,10 @@
         display: flex;
         align-items: center;
         gap: fn.getSpacing(lg);
+
+        @include mix.respond(sm) {
+          display: none;
+        }
 
         .tfb-filter-group {
           display: flex;

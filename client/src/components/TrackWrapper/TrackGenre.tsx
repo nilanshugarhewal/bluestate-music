@@ -5,7 +5,6 @@ import { BeatCard } from "../BeatCard/BeatCard";
 import { BeatRow } from "../BeatRow/BeatRow";
 
 import "./TrackGenre.scss";
-
 import { Beat } from "../../types";
 
 type BeatProps = {

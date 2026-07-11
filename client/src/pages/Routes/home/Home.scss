@@ -1,10 +1,12 @@
 @use "../../../sass/abstracts/variables" as var;
+@use "../../../sass/abstracts/mixins" as mix;
 @use "../../../sass/abstracts/functions" as fn;
 
 .home {
   width: 100vw;
   height: auto;
   position: relative;
+
 
   .hero-section {
     width: 100%;
@@ -72,8 +74,9 @@
     }
   }
 
+
   .home-beat-section {
-    width: 100%;
+    width: 100vw;
     height: auto;
     display: flex;
     flex-direction: column;
@@ -87,6 +90,34 @@
       font-size: 2rem;
       font-family: var.$font-main;
       text-transform: uppercase;
+    }
+
+    .home-view-all-beat {
+      display: none;
+
+      @include mix.respond(sm) {
+        width: 100%;
+        height: auto;
+        display: flex;
+        justify-content: center;
+        margin-top: 2rem;
+
+        .view-all-beats-link {
+          border: 1px solid var.$dark2;
+          background-color: var.$dark;
+          padding: 4px 8px;
+          text-decoration: none;
+          color: var.$white;
+        }
+      }
+    }
+
+    @include mix.respond(md) {
+      .home-beat-heading {
+        font-size: 1rem;
+      }
+
+      row-gap: 0;
     }
   }
 

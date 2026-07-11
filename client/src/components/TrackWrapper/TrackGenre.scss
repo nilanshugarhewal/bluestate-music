@@ -1,32 +1,16 @@
-@use "../../sass/abstracts/variables" as *;
-@use "../../sass/abstracts/mixins" as *;
-@use "../../sass/abstracts/functions" as *;
+@use "../../sass/abstracts/variables" as var;
+@use "../../sass/abstracts/mixins" as mix;
+@use "../../sass/abstracts/functions" as fn;
 
 .tc-pop {
   width: 100%;
   height: auto;
   display: flex;
   flex-direction: column;
-  gap: 14px;
-  margin-top: 24px;
-  z-index: 899;
-  padding: 0 getSpacing(xl);
+  padding: 0 fn.getSpacing(xl);
 
-  .tc-pop-heading {
-    width: 100%;
-    height: auto;
-    font-size: 18px;
-    font-family: $font-bold;
-    display: flex;
-    justify-content: space-between;
-    padding: 0 getSpacing(xl);
-
-    span {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      color: $fg-secondary;
-    }
+  @include mix.respond(xl) {
+    padding: 0;
   }
 
   .tc-pop-container {
@@ -37,6 +21,20 @@
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 24px;
+
+      @include mix.respond(lg) {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      @include mix.respond(md) {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      @include mix.respond(sm) {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: fn.getSpacing(md);
+      }
     }
 
     &.tc-pop-list {

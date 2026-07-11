@@ -3,9 +3,11 @@ import { Beat } from "../../../types";
 
 import "./Home.scss"
 
+import HeroSection from "./components/HeroSection/HeroSection";
+
 import TrackGenre from "../../../components/TrackWrapper/TrackGenre";
 import Loading from "../../../components/Loading/Loading";
-
+import { Link } from "react-router-dom";
 const Home = () => {
   const apiEnv = process.env.REACT_APP_API_URL;
 
@@ -74,6 +76,10 @@ const Home = () => {
         ) : (
           <Loading />
         )}
+
+        <div className="home-view-all-beat">
+          <Link to="/tracks" className="view-all-beats-link">View All</Link>
+        </div>
       </div>
     </div>
   );

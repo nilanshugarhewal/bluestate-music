@@ -1,6 +1,6 @@
-@use "../../sass/abstracts/variables" as *;
-@use "../../sass/abstracts/mixins" as *;
-@use "../../sass/abstracts/functions" as *;
+@use "../../sass/abstracts/variables" as var;
+@use "../../sass/abstracts/mixins" as mix;
+@use "../../sass/abstracts/functions" as fn;
 
 .footer {
     width: 100vw;
@@ -8,7 +8,12 @@
     margin-top: 280px;
     display: flex;
     flex-direction: column;
-    row-gap: getSpacing(xxl);
+    row-gap: fn.getSpacing(xxl);
+
+    @include mix.respond(sm) {
+        row-gap: fn.getSpacing(lg);
+        margin-top: 128px;
+    }
 
     .footer-top {
         width: 100%;
@@ -17,11 +22,11 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        gap: getSpacing(md);
+        gap: fn.getSpacing(md);
 
         .footer-top-text {
             font-size: 2rem;
-            font-family: $font-main;
+            font-family: var.$font-main;
             text-transform: uppercase;
         }
 
@@ -36,6 +41,16 @@
                 object-fit: cover;
             }
         }
+
+        @include mix.respond(sm) {
+            .footer-top-text {
+                font-size: 14px;
+            }
+
+            .footer-top-image {
+                height: 96px;
+            }
+        }
     }
 
     .footer-center {
@@ -45,11 +60,11 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        gap: getSpacing(sm);
+        gap: fn.getSpacing(sm);
 
         .footer-center-top {
             font-size: 2rem;
-            font-family: $font-main;
+            font-family: var.$font-main;
             text-transform: uppercase;
         }
 
@@ -57,7 +72,7 @@
             font-size: 2rem;
             font-weight: 700;
             text-transform: uppercase;
-            color: $primary;
+            color: var.$primary;
         }
 
         .footer-center-bottom {
@@ -67,7 +82,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: getSpacing(sm);
+            gap: fn.getSpacing(sm);
 
             .footer-form {
                 width: 40%;
@@ -76,34 +91,50 @@
                 flex-direction: row;
                 align-items: center;
                 justify-content: center;
-                gap: getSpacing(sm);
+                gap: fn.getSpacing(sm);
 
                 input {
                     width: 100%;
                     padding: 12px 20px;
                     outline: none;
-                    color: $white;
-                    border: 1px solid $dark2;
+                    color: var.$white;
+                    border: 1px solid var.$dark2;
                     background-color: transparent;
 
                     ::-ms-input-placeholder {
-                        color: $white;
+                        color: var.$white;
                     }
 
                     ::-webkit-input-placeholder {
-                        color: $white;
+                        color: var.$white;
                     }
                 }
 
                 button {
                     padding: 12px 20px;
                     outline: none;
-                    border: 1px solid $dark2;
-                    background-color: $dark2;
+                    border: 1px solid var.$dark2;
+                    background-color: var.$dark2;
                     text-transform: uppercase;
                     cursor: pointer;
-                    color: $white;
+                    color: var.$white;
                     font-family: "Mona Sans", sans-serif;
+                }
+            }
+        }
+
+        @include mix.respond(sm) {
+            padding: fn.getSpacing(md);
+            gap: fn.getSpacing(xs);
+
+            .footer-center-top,
+            .footer-center-artist {
+                font-size: 14px;
+            }
+
+            .footer-center-bottom {
+                .footer-form {
+                    width: 100%;
                 }
             }
         }
@@ -114,13 +145,21 @@
         height: auto;
         display: flex;
         flex-direction: column;
-        gap: getSpacing(md);
+        gap: fn.getSpacing(md);
         padding: 0 4rem 1rem;
+
+        @include mix.respond(xl) {
+            padding: 0 2rem 1rem;
+        }
+
+        @include mix.respond(sm) {
+            padding: fn.getSpacing(md);
+        }
 
         .footer-bottom-divider {
             width: 100%;
             height: 1px;
-            background-color: $dark2;
+            background-color: var.$dark2;
         }
 
         .footer-bottom-text-container {
@@ -130,11 +169,15 @@
             justify-content: space-between;
 
             .footer-bottom-text {
-                color: $grey;
+                color: var.$grey;
                 font-size: 12px;
 
                 a {
-                    color: $primary;
+                    color: var.$primary;
+                }
+
+                @include mix.respond(sm) {
+                    font-size: 10px;
                 }
             }
         }

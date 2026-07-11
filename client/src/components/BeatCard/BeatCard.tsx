@@ -23,6 +23,7 @@ export const BeatCard = ({ beat, handlePlay }: { beat: Beat, handlePlay: any }) 
 
                 <div className="beat-card-bottom">
                     <span className="beat-card-bpm">{beat.bpm} BPM</span>
+                    <span className="beat-card-price">${beat.price}</span>
                     {/* <span>&middot;</span> */}
                     <div className="beat-card-genres">
                         {beat.genre?.slice(0, 3).map((genre: any, index: number) => (

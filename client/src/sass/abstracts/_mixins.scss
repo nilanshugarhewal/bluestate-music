@@ -1,5 +1,7 @@
 // RESUABLE FUNCTIONS
 
+@use "../abstracts/variables" as *;
+
 // TO CENTER ANYTHING INSIDE CONTAINER
 @mixin flex-center {
   display: flex;
@@ -58,4 +60,20 @@
 @mixin full-half {
   width: 100%;
   height: 50%;
+}
+
+// _breakpoints.scss
+
+
+
+@mixin respond($breakpoint) {
+  @if map-has-key($breakpoints, $breakpoint) {
+    @media (max-width: map-get($breakpoints, $breakpoint)) {
+      @content;
+    }
+  }
+
+  @else {
+    @warn "Breakpoint '#{$breakpoint}' does not exist.";
+  }
 }
