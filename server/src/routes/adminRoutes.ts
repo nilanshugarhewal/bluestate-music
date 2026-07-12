@@ -21,7 +21,7 @@ router.get("/", async (req: Request, res: Response) => {
 router.get("/:id", async (req: Request, res: Response) => {
   const { id } = req.params;
   try {
-    const beat = await prisma.beat.findUnique({ where: { id } });
+    const beat = await prisma.beat.findUnique({ where: { id: id as string } });
     if (!beat) {
       return res.status(404).json({ error: "Beat not found" });
     }
@@ -109,7 +109,7 @@ router.put("/:id", async (req: Request, res: Response) => {
     }
 
     const updatedBeat = await prisma.beat.update({
-      where: { id: req.params.id },
+      where: { id: req.params.id as string },
       data: updateFields,
     });
 
@@ -132,7 +132,7 @@ router.put("/:id", async (req: Request, res: Response) => {
 router.delete("/:id", async (req: Request, res: Response) => {
   try {
     const deletedBeat = await prisma.beat.delete({
-      where: { id: req.params.id }
+      where: { id: req.params.id as string }
     });
 
     res.status(200).json({ message: "Beat deleted successfully!" });
