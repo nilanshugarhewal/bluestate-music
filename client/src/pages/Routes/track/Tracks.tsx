@@ -1,5 +1,6 @@
-import { useEffect, useState, useMemo } from "react";
+import { useState, useMemo } from "react";
 import { Beat } from "../../../types";
+import { useGetBeatsQuery } from "../../../store/apiSlice";
 import "./Track.scss";
 import { MagnifyingGlassIcon } from "@phosphor-icons/react";
 
@@ -8,11 +9,7 @@ import TrackGenre from "../../../components/TrackWrapper/TrackGenre";
 import Loading from "../../../components/Loading/Loading";
 
 const Tracks = () => {
-  const apiLink = process.env.REACT_APP_API_URL;
-
-
-
-  const [allBeats, setAllBeats] = useState<Beat[]>([]);
+  const { data: allBeats = [], isLoading } = useGetBeatsQuery();
 
   // Filter States
   const [searchTerm, setSearchTerm] = useState("");
@@ -27,20 +24,6 @@ const Tracks = () => {
     { label: "Still Waiting", value: "Still Waiting" },
     { label: "Everything's Blue", value: "Everything's Blue" },
   ];
-
-  useEffect(() => {
-    if (!apiLink) {
-      console.error("API URL is not defined!");
-      return;
-    }
-
-    fetch(apiLink)
-      .then((res) => res.json())
-      .then((data: Beat[]) => {
-        setAllBeats(data);
-      })
-      .catch((err) => console.log(err));
-  }, [apiLink]);
 
   // Dynamically extract unique scales from available beats
   const uniqueScales = useMemo(() => {
@@ -143,7 +126,9 @@ const Tracks = () => {
         </div>
       </div>
 
-      {allBeats.length > 0 ? (
+      {isLoading ? (
+        <Loading />
+      ) : allBeats.length > 0 ? (
         <div className="browse-content-container">
           {filteredBeats.length > 0 ? (
             <TrackGenre allBeats={filteredBeats} variant="row" />
@@ -160,7 +145,7 @@ const Tracks = () => {
           )}
         </div>
       ) : (
-        <Loading />
+        <div style={{ textAlign: "center", color: "#a1a1aa", marginTop: "2rem" }}>No beats available</div>
       )}
     </div>
   );

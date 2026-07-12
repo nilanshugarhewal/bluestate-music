@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   playTrack,
@@ -15,6 +15,7 @@ import {
   ShareNetworkIcon, 
   MusicNoteIcon,
 } from "@phosphor-icons/react";
+import { useGetBeatByIdQuery, useGetBeatsQuery } from "../../../store/apiSlice";
 
 import "./ShowTrack.scss";
 
@@ -24,15 +25,23 @@ import { Beat } from "../../../types";
 // ---------- Component ----------
 const TrackInfo = () => {
   const { id } = useParams();
-  const [beat, setBeat] = useState<Beat>();
-  const [loading, setLoading] = useState(true);
-  const [relatedTracks, setRelatedTracks] = useState<Beat[]>([]);
+  
+  const { data: beat, isLoading: loading } = useGetBeatByIdQuery(id ?? "", { skip: !id });
+  const { data: allBeats = [] } = useGetBeatsQuery();
+
+  const relatedTracks = useMemo(() => {
+    if (!allBeats.length) return [];
+    const shuffled = [...allBeats];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    return shuffled.filter((t) => t.id !== id).slice(0, 5);
+  }, [allBeats, id]);
 
   const dispatch = useDispatch();
   const { currentTrack, isPlaying } =
     useSelector((s: RootState) => s.player);
-
-  const apiLink = process.env.REACT_APP_API_URL;
 
   const isCurrent = currentTrack?.id === beat?.id;
   const playing = isCurrent && isPlaying;
@@ -43,41 +52,6 @@ const TrackInfo = () => {
     dispatch(
       isCurrent ? (playing ? pauseTrack() : resumeTrack()) : playTrack(beat)
     );
-
-  // ---------- Fetch Beat & Related Tracks ----------
-  useEffect(() => {
-    if (!id || !apiLink) return;
-
-    // Reset state for new track
-    setLoading(true);
-    // setBg("#18181b");
-
-    // Fetch the specific track
-    fetch(`${apiLink}track/${id}`)
-      .then((res) => res.json())
-      .then((data) => {
-        setBeat(data);
-        setLoading(false);
-      })
-      .catch(console.error);
-
-    // Fetch related tracks from the main API, then shuffle client-side
-    if (apiLink) {
-      fetch(apiLink)
-        .then(res => res.json())
-        .then((data: Beat[]) => {
-          // Fisher-Yates shuffle
-          const shuffled = [...data];
-          for (let i = shuffled.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-          }
-          const filtered = shuffled.filter(t => t.id !== id).slice(0, 5);
-          setRelatedTracks(filtered);
-        })
-        .catch(console.error);
-    }
-  }, [id, apiLink]);
 
   // ---------- Render ----------
   if (loading || !beat) return <Loading />;

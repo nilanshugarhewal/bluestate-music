@@ -14,7 +14,7 @@ const NavLinks = () => {
       <div className="navbar-group">
         <div className="nav-links">
           <Link
-            to={"/home"}
+            to={"/"}
             className={`icon uni-link ${isActive("/home") ? "active" : ""}`}
           >
             <span className="icon-child">

@@ -1,54 +1,31 @@
-import { useEffect, useState } from "react";
-import { Beat } from "../../../types";
-
-import "./Home.scss"
+import "./Home.scss";
 
 import HeroSection from "./components/HeroSection/HeroSection";
-
 import TrackGenre from "../../../components/TrackWrapper/TrackGenre";
 import Loading from "../../../components/Loading/Loading";
 import { Link } from "react-router-dom";
+import { useGetBeatsQuery } from "../../../store/apiSlice";
+
 const Home = () => {
-  const apiEnv = process.env.REACT_APP_API_URL;
-
-  const [beats, setBeats] = useState<Beat[]>([]);
-
-  // reusable fetcher
-  const fetchBeats = async (url: string): Promise<Beat[]> => {
-    try {
-      const res = await fetch(url);
-      return await res.json();
-    } catch (err) {
-      console.error("Fetch error:", err);
-      return [];
-    }
-  };
-
-  useEffect(() => {
-    const loadBeats = async () => {
-      if (!apiEnv) return;
-      const all = await fetchBeats(apiEnv);
-      setBeats(all);
-    };
-
-    loadBeats();
-  }, [apiEnv]);
+  const { data: beats = [], isLoading } = useGetBeatsQuery();
 
   return (
     <div className="home">
-
       <HeroSection />
 
       <div className="home-beat-section">
         <div className="home-beat-heading">
           Newest Beats
         </div>
-        {beats.length > 0 ? (
+        
+        {isLoading ? (
+          <Loading />
+        ) : beats.length > 0 ? (
           <div className="home-content-container">
             <TrackGenre allBeats={beats.slice(0, 8)} />
           </div>
         ) : (
-          <Loading />
+          <div style={{ textAlign: "center", color: "#a1a1aa" }}>No beats found</div>
         )}
 
         <div className="home-view-all-beat">

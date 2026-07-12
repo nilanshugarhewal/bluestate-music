@@ -26,7 +26,7 @@ const App = () => {
 
       <Suspense fallback={<Loading />}>
         <Routes>
-          <Route path="/home" element={<Home />}></Route>
+          <Route path="/" element={<Home />}></Route>
 
           <Route path="/tracks" element={<Tracks />}></Route>
 
@@ -37,8 +37,6 @@ const App = () => {
           <Route path="/edit/:id" element={<EditBeat />}></Route>
 
           <Route path="/create" element={<CreatePage />}></Route>
-
-          <Route path="/" element={<Navigate to="/home" replace />} />
         </Routes>
       </Suspense>
 

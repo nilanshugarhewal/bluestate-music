@@ -1,28 +1,16 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
-
-import { Beat } from "../../types";
+import { useGetAdminBeatsQuery, useDeleteBeatMutation } from "../../store/apiSlice";
+import Loading from "../../components/Loading/Loading";
 
 const AdminPanel = () => {
-  // Base URL for admin routes
-  const apiLink = process.env.REACT_APP_API_ADMIN;
-
-  const [beats, setBeats] = useState<Beat[]>([]);
+  const { data: beats = [], isLoading } = useGetAdminBeatsQuery();
+  const [deleteBeat] = useDeleteBeatMutation();
   const [search, setSearch] = useState("");
-
-  // Fetch beats
-  useEffect(() => {
-    fetch(`${apiLink}`) // backend GET / → returns all beats
-      .then((res) => res.json())
-      .then((data) => setBeats(data))
-      .catch((err) => console.error(err));
-  }, [apiLink]);
 
   // Delete Beat
   const handleDelete = (id: string) => {
-    fetch(`${apiLink}/${id}`, { method: "DELETE" }).then(() =>
-      setBeats(beats.filter((b) => b.id !== id))
-    );
+    deleteBeat(id);
   };
 
   // Filter beats by search
@@ -59,7 +47,10 @@ const AdminPanel = () => {
           </tr>
         </thead>
         <tbody>
-          {filteredBeats.map((beat) => (
+          {isLoading ? (
+            <tr><td colSpan={4}><Loading /></td></tr>
+          ) : (
+            filteredBeats.map((beat) => (
             <tr key={beat.id}>
               <td>{beat.title}</td>
               <td>{beat.bpm}</td>
@@ -71,7 +62,7 @@ const AdminPanel = () => {
                 </a>
               </td>
             </tr>
-          ))}
+          )))}
         </tbody>
       </table>
     </div>

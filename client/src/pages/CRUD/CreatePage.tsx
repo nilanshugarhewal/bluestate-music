@@ -1,27 +1,20 @@
 import React, { useState } from "react";
-
+import { useCreateBeatMutation } from "../../store/apiSlice";
 import { Beat } from "../../types";
 
 const CreatePage = () => {
-  const apiLink = process.env.REACT_APP_API_ADMIN;
-
-  const [beats, setBeats] = useState<Beat[]>([]);
   const [newBeat, setNewBeat] = useState<Partial<Beat>>({});
+  const [createBeat] = useCreateBeatMutation();
 
   // Create / Upload Beat
   const handleCreate = async () => {
     try {
-      const res = await fetch(`${apiLink}/`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(newBeat),
-      });
-
-      const data = await res.json();
-      setBeats([...beats, data]);
+      await createBeat(newBeat).unwrap();
       setNewBeat({});
+      alert("Beat created successfully!");
     } catch (err) {
       console.error("Error creating beat:", err);
+      alert("Failed to create beat.");
     }
   };
 

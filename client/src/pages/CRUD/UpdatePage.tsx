@@ -1,34 +1,24 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-
+import { useGetAdminBeatByIdQuery, useUpdateBeatMutation } from "../../store/apiSlice";
 import { Beat } from "../../types";
 
 const EditBeat = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const apiLink = process.env.REACT_APP_API_ADMIN;
 
-  const [beat, setBeat] = useState<Beat | null>(null);
-  const [loading, setLoading] = useState(true);
+  const { data: fetchedBeat, isLoading: loading } = useGetAdminBeatByIdQuery(id ?? "", { skip: !id });
+  const [updateBeat] = useUpdateBeatMutation();
+
+  const [beat, setBeat] = useState<Partial<Beat> | null>(null);
   const [saving, setSaving] = useState(false);
 
-  // Fetch beat by id
+  // Sync fetched data to local editable state
   useEffect(() => {
-    if (!id) return;
-    fetch(`${apiLink}/${id}`)
-      .then((res) => {
-        if (!res.ok) throw new Error("Failed to fetch beat");
-        return res.json();
-      })
-      .then((data) => {
-        setBeat(data);
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.error(err);
-        setLoading(false);
-      });
-  }, [apiLink, id]);
+    if (fetchedBeat) {
+      setBeat(fetchedBeat);
+    }
+  }, [fetchedBeat]);
 
   // Handle input changes (single fields)
   const handleChange = (
@@ -52,30 +42,22 @@ const EditBeat = () => {
   };
 
   // Submit changes
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!id || !beat) return;
 
     setSaving(true);
 
-    fetch(`${apiLink}/${id}`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(beat),
-    })
-      .then((res) => {
-        if (!res.ok) throw new Error("Failed to update beat");
-        return res.json();
-      })
-      .then(() => {
-        alert("✅ Beat updated successfully!");
-        navigate("/admin");
-      })
-      .catch((err) => {
-        console.error(err);
-        alert("❌ Failed to update beat");
-      })
-      .finally(() => setSaving(false));
+    try {
+      await updateBeat({ id, updates: beat }).unwrap();
+      alert("✅ Beat updated successfully!");
+      navigate("/admin");
+    } catch (err) {
+      console.error(err);
+      alert("❌ Failed to update beat");
+    } finally {
+      setSaving(false);
+    }
   };
 
   if (loading) return <p className="text-center p-6">Loading...</p>;
