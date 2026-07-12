@@ -1,5 +1,4 @@
 import { useState, useMemo } from "react";
-import { Beat } from "../../../types";
 import { useGetBeatsQuery } from "../../../store/apiSlice";
 import "./Track.scss";
 import { MagnifyingGlassIcon } from "@phosphor-icons/react";

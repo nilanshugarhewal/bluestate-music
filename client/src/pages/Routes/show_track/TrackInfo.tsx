@@ -19,9 +19,6 @@ import { useGetBeatByIdQuery, useGetBeatsQuery } from "../../../store/apiSlice";
 
 import "./ShowTrack.scss";
 
-// ---------- Types ----------
-import { Beat } from "../../../types";
-
 // ---------- Component ----------
 const TrackInfo = () => {
   const { id } = useParams();

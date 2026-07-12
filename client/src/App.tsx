@@ -1,5 +1,5 @@
 import { Suspense, lazy } from "react";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 // COMPONENTS & LAYOUTS (Loaded immediately)
 import Nav from "./layouts/Navbar/Navbar";
