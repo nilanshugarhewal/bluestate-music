@@ -1,12 +1,18 @@
 import React from "react";
 import { Play } from "@phosphor-icons/react";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store";
 import "./BeatRow.scss";
 import { Beat } from "../../types";
 
 export const BeatRow = ({ beat, handlePlay }: { beat: Beat, handlePlay: any }) => {
+    const { currentTrack } = useSelector((state: RootState) => state.player);
+    const isActive = currentTrack?.id === beat.id;
+
     return (
         <div
-            className="beat-row"
+            className={`beat-row ${isActive ? "active-track" : ""}`}
+            style={{ backgroundColor: isActive ? "#1d1d1d" : "" }}
             onClick={() => handlePlay(beat)}
         >
             <div className="beat-row-left">

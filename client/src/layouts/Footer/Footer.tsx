@@ -1,6 +1,19 @@
+import { useState } from "react";
 import "./Footer.scss";
 
 const Footer = () => {
+    const [email, setEmail] = useState("");
+
+    const handleSubscribe = () => {
+        if (!email.trim()) return;
+        
+        const subject = encodeURIComponent("Newsletter Signup");
+        const body = encodeURIComponent(`Please add ${email} to the newsletter list.`);
+        window.location.href = `mailto:contact@bluestate.com?subject=${subject}&body=${body}`;
+        
+        setEmail(""); // clear input after clicking
+    };
+
     return (
         <div className="footer">
             <div className="footer-top">
@@ -15,8 +28,14 @@ const Footer = () => {
                 <div className="footer-center-artist">bluestate</div>
                 <div className="footer-center-bottom">
                     <div className="footer-form">
-                        <input type="email" placeholder="Enter your email" />
-                        <button>submit</button>
+                        <input 
+                            type="email" 
+                            placeholder="Enter your email" 
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            onKeyDown={(e) => e.key === "Enter" && handleSubscribe()}
+                        />
+                        <button onClick={handleSubscribe}>submit</button>
                     </div>
                 </div>
             </div>

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useCallback } from "react";
 import {
   PlayIcon, PauseIcon,
   SkipBackIcon, SkipForwardIcon,
@@ -12,7 +12,9 @@ import {
   resumeTrack,
   setTime,
   clearSeek,
+  playTrack
 } from "../../store/playerSlice";
+import { useGetBeatsQuery } from "../../store/apiSlice";
 import { Link } from "react-router-dom";
 import "./MusicPlayer.scss";
 
@@ -28,10 +30,54 @@ const MusicPlayer = () => {
   const [hoverTime, setHoverTime] = useState<number | null>(null);
   const [hoverX, setHoverX] = useState<number>(0);
 
+  // Local feature states
+  const [likedIds, setLikedIds] = useState<Set<string>>(new Set());
+  const [isLooping, setIsLooping] = useState(false);
+  const [volume, setVolume] = useState(1);
+
+  // Fetch beats from cache to determine next/previous
+  const { data: allBeats = [] } = useGetBeatsQuery();
+
   // Toggle play/pause
   const togglePlay = () => {
     if (!currentTrack) return;
     isPlaying ? dispatch(pauseTrack()) : dispatch(resumeTrack());
+  };
+
+  // Skip logic
+  const handleNext = useCallback(() => {
+    if (!currentTrack || allBeats.length === 0) return;
+    const currentIndex = allBeats.findIndex(b => b.id === currentTrack.id);
+    if (currentIndex === -1) return;
+
+    const nextIndex = currentIndex === allBeats.length - 1 ? 0 : currentIndex + 1;
+    dispatch(playTrack(allBeats[nextIndex]));
+  }, [currentTrack, allBeats, dispatch]);
+
+  const handlePrev = () => {
+    if (!currentTrack || allBeats.length === 0) return;
+    const currentIndex = allBeats.findIndex(b => b.id === currentTrack.id);
+    if (currentIndex === -1) return;
+
+    const prevIndex = currentIndex === 0 ? allBeats.length - 1 : currentIndex - 1;
+    dispatch(playTrack(allBeats[prevIndex]));
+  };
+
+  const handleLike = () => {
+    if (!currentTrack) return;
+    const newSet = new Set(likedIds);
+    if (newSet.has(currentTrack.id)) {
+      newSet.delete(currentTrack.id);
+    } else {
+      newSet.add(currentTrack.id);
+    }
+    setLikedIds(newSet);
+  };
+
+  const handleShuffle = () => {
+    if (allBeats.length === 0) return;
+    const randIdx = Math.floor(Math.random() * allBeats.length);
+    dispatch(playTrack(allBeats[randIdx]));
   };
 
   // Wire audio events
@@ -49,10 +95,9 @@ const MusicPlayer = () => {
       dispatch(setTime({ current: audio.currentTime, duration: dur }));
     };
     const onEnded = () => {
-      dispatch(pauseTrack());
-      audio.currentTime = 0;
-      const dur = Number.isFinite(audio.duration) ? audio.duration : 0;
-      dispatch(setTime({ current: 0, duration: dur }));
+      // If looping is on, native HTML5 audio loops automatically.
+      // If it reaches here, looping is off, so play next track.
+      handleNext();
     };
 
     audio.addEventListener("loadedmetadata", onLoaded);
@@ -64,7 +109,7 @@ const MusicPlayer = () => {
       audio.removeEventListener("timeupdate", onTimeUpdate);
       audio.removeEventListener("ended", onEnded);
     };
-  }, [dispatch, currentTrack]);
+  }, [dispatch, currentTrack, handleNext]);
 
   // Apply play/pause from Redux
   useEffect(() => {
@@ -99,6 +144,13 @@ const MusicPlayer = () => {
       dispatch(clearSeek());
     }
   }, [seekToSec, dispatch]);
+
+  // Apply Volume
+  useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current.volume = volume;
+    }
+  }, [volume]);
 
   // Seek by clicking on the navbar bar
   const handleSeekClick = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -180,7 +232,7 @@ const MusicPlayer = () => {
 
       <div className="music-player bg-blur">
         {/* Only audio in the whole app */}
-        <audio ref={audioRef} src={currentTrack.audioUrl} preload="metadata" />
+        <audio ref={audioRef} src={currentTrack.audioUrl} preload="metadata" loop={isLooping} />
 
 
 
@@ -195,12 +247,12 @@ const MusicPlayer = () => {
               )}
             </button>
 
-            <button className="mp-control-btn">
+            <button className="mp-control-btn" onClick={handlePrev}>
               <SkipBackIcon weight="fill" />
             </button>
 
 
-            <button className="mp-control-btn">
+            <button className="mp-control-btn" onClick={handleNext}>
               <SkipForwardIcon weight="fill" />
             </button>
           </div>
@@ -254,18 +306,33 @@ const MusicPlayer = () => {
 
         {/* RIGHT: Extra Actions */}
         <div className="mp-right">
-          <button className="mp-action-btn">
-            <HeartIcon />
+          <button className="mp-action-btn" onClick={handleLike}>
+            <HeartIcon
+              weight={currentTrack && likedIds.has(currentTrack.id) ? "fill" : "regular"}
+              color={currentTrack && likedIds.has(currentTrack.id) ? "#ef4444" : "currentColor"}
+            />
           </button>
-          <button className="mp-action-btn">
+          <button className="mp-action-btn" onClick={handleShuffle}>
             <ShuffleIcon />
           </button>
-          <button className="mp-action-btn">
-            <RepeatIcon />
+          <button className="mp-action-btn" onClick={() => setIsLooping(!isLooping)}>
+            <RepeatIcon color={isLooping ? "#3b82f6" : "currentColor"} />
           </button>
-          <button className="mp-action-btn">
-            <SpeakerHighIcon />
-          </button>
+          <div className="mp-volume">
+            <button className="mp-action-btn" onClick={() => setVolume(v => v === 0 ? 1 : 0)}>
+              <SpeakerHighIcon />
+            </button>
+            <input
+              className="mp-volume-slider"
+              type="range"
+              min="0"
+              max="1"
+              step="0.01"
+              value={volume}
+              onChange={(e) => setVolume(Number(e.target.value))}
+              style={{ background: `linear-gradient(to right, #5b76f7 ${volume * 100}%, #2d2d2d ${volume * 100}%)` }}
+            />
+          </div>
         </div>
       </div>
     </div>

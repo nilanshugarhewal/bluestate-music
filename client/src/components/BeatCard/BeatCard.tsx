@@ -3,9 +3,10 @@ import "./BeatCard.scss";
 import { Beat } from "../../types";
 
 export const BeatCard = ({ beat, handlePlay }: { beat: Beat, handlePlay: any }) => {
+
     return (
         <div
-            className="beat-card"
+            className={`beat-card`}
             key={beat.id}
             onClick={() => handlePlay(beat)}
         >
@@ -24,7 +25,6 @@ export const BeatCard = ({ beat, handlePlay }: { beat: Beat, handlePlay: any }) 
                 <div className="beat-card-bottom">
                     <span className="beat-card-bpm">{beat.bpm} BPM</span>
                     <span className="beat-card-price">Buy</span>
-                    {/* <span>&middot;</span> */}
                     <div className="beat-card-genres">
                         {beat.genre?.slice(0, 3).map((genre: any, index: number) => (
                             <div key={index} className="beat-card-genre">
