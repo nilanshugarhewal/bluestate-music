@@ -26,13 +26,17 @@ const HeroSection = () => {
 
             <div className="hero-bottom">
                 <div className="hero-photo-grid">
-                    <img className="hero-photo" src="/assets/logo/bluestate_logo.png" alt="" />
-                    <img className="hero-photo" src="/assets/logo/bluestate_logo.png" alt="" />
-                    <img className="hero-photo" src="/assets/logo/bluestate_logo.png" alt="" />
-                    <img className="hero-photo" src="/assets/logo/bluestate_logo.png" alt="" />
-                    <img className="hero-photo" src="/assets/logo/bluestate_logo.png" alt="" />
-                    <img className="hero-photo" src="/assets/logo/bluestate_logo.png" alt="" />
-                    <img className="hero-photo" src="/assets/logo/bluestate_logo.png" alt="" />
+                    {[
+                      "/assets/images/everythings_blue.jpg",
+                      "/assets/images/still_waiting.png",
+                      "/assets/images/dark_signals_v1.jpg",
+                      "/assets/logo/bluestate_logo.png",
+                      "/assets/logo/bluestate_logo.png",
+                      "/assets/logo/bluestate_logo.png",
+                      "/assets/logo/bluestate_logo.png"
+                    ].map((src, index) => (
+                      <img key={index} className="hero-photo" src={src} alt="" loading="lazy" />
+                    ))}
                 </div>
             </div>
         </div>
